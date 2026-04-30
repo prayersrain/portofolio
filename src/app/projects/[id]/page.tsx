@@ -4,7 +4,7 @@ import { use } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, ArrowUpRight } from "lucide-react";
 import { projectsData } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -118,10 +118,21 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
               </p>
             </div>
             
-            <div className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-xl w-full sm:w-80 mt-4">
-              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Project Links</h3>
+            <div className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-xl w-full sm:w-80 mt-4 space-y-4">
+              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">Project Links</h3>
+              {project.liveUrl && (
+                <Link href={project.liveUrl} target="_blank">
+                  <Button className="w-full justify-between group py-6 bg-primary text-black hover:bg-primary/90">
+                    <span className="flex items-center gap-3">
+                      <ExternalLink className="w-5 h-5" />
+                      Live Preview
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </Button>
+                </Link>
+              )}
               <Link href={project.githubUrl} target="_blank">
-                <Button className="w-full justify-between group py-6">
+                <Button variant="outline" className="w-full justify-between group py-6 border-white/20 hover:bg-white/10">
                   <span className="flex items-center gap-3">
                     <GithubIcon className="w-5 h-5" />
                     View Source Code
