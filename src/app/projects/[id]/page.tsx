@@ -156,27 +156,31 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
               </p>
             </div>
             
-            <div className="p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-xl w-full sm:w-96 space-y-5">
-              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Project Links</h3>
+            <div className="p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl w-full lg:max-w-md space-y-6">
+              <div className="space-y-1">
+                <h3 className="text-xs font-bold text-primary uppercase tracking-widest">Project Assets</h3>
+                <p className="text-sm text-muted-foreground">Access live preview and source code</p>
+              </div>
+              
               <div className="flex flex-col gap-4">
                 {project.liveUrl && (
-                  <Link href={project.liveUrl} target="_blank">
-                    <Button className="w-full justify-between group py-7 bg-primary text-black hover:bg-primary/90 rounded-xl text-lg font-bold">
+                  <Link href={project.liveUrl} target="_blank" className="w-full">
+                    <Button className="w-full justify-between group py-6 md:py-7 bg-primary text-black hover:bg-primary/90 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
                       <span className="flex items-center gap-3">
-                        <ExternalLink className="w-6 h-6" />
+                        <ExternalLink className="w-5 h-5 md:w-6 md:h-6" />
                         Live Preview
                       </span>
-                      <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </Button>
                   </Link>
                 )}
-                <Link href={project.githubUrl} target="_blank">
-                  <Button variant="outline" className="w-full justify-between group py-7 border-white/10 hover:bg-white/5 rounded-xl text-lg font-bold">
+                <Link href={project.githubUrl} target="_blank" className="w-full">
+                  <Button variant="outline" className="w-full justify-between group py-6 md:py-7 border-white/10 hover:bg-white/5 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
                     <span className="flex items-center gap-3">
-                      <GithubIcon className="w-6 h-6" />
+                      <GithubIcon className="w-5 h-5 md:w-6 md:h-6" />
                       View Source
                     </span>
-                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </Button>
                 </Link>
               </div>

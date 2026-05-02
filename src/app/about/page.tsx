@@ -33,7 +33,7 @@ export default function AboutPage() {
           className="relative w-full aspect-square rounded-3xl overflow-hidden border border-white/10 bg-white/5"
         >
           <Image 
-            src="/profile.png" 
+            src="/profile.jpg" 
             alt="M Fauzan Haikal Mugni" 
             fill 
             sizes="(max-width: 768px) 100vw, 33vw"
