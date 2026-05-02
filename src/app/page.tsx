@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet, FileText } from "lucide-react";
+import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet, FileText, Quote } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
@@ -421,6 +421,45 @@ export default function Home() {
               </Link>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* --- TESTIMONIALS (Brutalist Redesign) --- */}
+      <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 border-t border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Side: Author Profile */}
+          <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-6">
+            <div className="relative">
+              <div className="w-32 h-32 rounded-none bg-primary border-4 border-black rotate-3 absolute inset-0 -z-10" />
+              <div className="w-32 h-32 rounded-none bg-neutral-900 border-2 border-white/20 overflow-hidden flex items-center justify-center -rotate-3 transition-transform hover:rotate-0 duration-500">
+                <span className="text-5xl font-black text-primary/30">W</span>
+              </div>
+            </div>
+            <div className="text-center lg:text-left">
+              <h4 className="text-2xl font-black uppercase tracking-tighter">Wahyudi</h4>
+              <p className="text-primary font-mono text-xs uppercase tracking-widest bg-primary/10 px-3 py-1 inline-block mt-2">
+                CEO, Karya Mandiri Dental
+              </p>
+            </div>
+          </div>
+
+          {/* Right Side: The Quote */}
+          <div className="lg:col-span-8 relative">
+            <Quote className="absolute -top-12 -left-12 w-24 h-24 text-white/5 opacity-20 -z-10" />
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <p className="text-3xl md:text-5xl font-black italic leading-[1.1] tracking-tighter text-white uppercase">
+                &quot;Fauzan transformed our <span className="text-primary">manual operations</span> into a seamless digital system. His ability to translate business needs into <span className="text-stroke-white text-transparent">robust solutions</span>  is rare.&quot;
+              </p>
+              <div className="w-24 h-2 bg-primary" />
+            </motion.div>
+          </div>
+
         </div>
       </section>
 

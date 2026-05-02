@@ -131,3 +131,12 @@ html {
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .text-stroke-white {
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+  }
+  .text-stroke-primary {
+    -webkit-text-stroke: 1.5px var(--color-primary);
+  }
+}
