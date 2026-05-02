@@ -20,7 +20,7 @@ export default function ProjectsPage() {
           All <span className="text-primary italic">Projects</span>.
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl">
-          Kumpulan seluruh karya dan eksplorasi digital saya. Klik pada proyek untuk melihat detail dan dokumentasinya.
+          A collection of my digital works and explorations. Click on a project to view its details and documentation.
         </p>
       </motion.div>
 

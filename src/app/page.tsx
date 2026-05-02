@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Cpu, ArrowUpRight } from "lucide-react";
+import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
@@ -12,17 +12,19 @@ import { Badge } from "@/components/ui/badge";
 import { journeyData } from "@/data/journey";
 
 const techStack = [
+  { name: "Next.js", category: "Core", slug: "nextjs", source: "devicon" },
+  { name: "TypeScript", category: "Core", slug: "typescript", source: "devicon" },
+  { name: "Node.js", category: "Core", slug: "nodejs", source: "devicon" },
   { name: "React", category: "Frontend", slug: "react", source: "devicon" },
-  { name: "Next.js", category: "Frontend", slug: "nextjs", source: "devicon" },
-  { name: "TypeScript", category: "Languages", slug: "typescript", source: "devicon" },
-  { name: "Tailwind CSS", category: "Styling", slug: "tailwindcss", source: "devicon" },
-  { name: "Node.js", category: "Backend", slug: "nodejs", source: "devicon" },
-  { name: "PostgreSQL", category: "Database", slug: "postgresql", source: "devicon" },
-  { name: "Prisma", category: "ORM", slug: "prisma", source: "devicon" },
-  { name: "Framer Motion", category: "Animation", slug: "framer", source: "simpleicons", color: "0055FF" },
-  { name: "PWA", category: "Web App", slug: "pwa", source: "simpleicons", color: "5A0FC8" },
-  { name: "NextAuth", category: "Security", slug: "nextauth", source: "custom" },
-  { name: "Midtrans API", category: "Payment", slug: "midtrans", source: "custom" },
+  { name: "Tailwind CSS", category: "Frontend", slug: "tailwindcss", source: "simpleicons", color: "06B6D4" },
+  { name: "Framer Motion", category: "Frontend", slug: "framer", source: "simpleicons", color: "0055FF" },
+  { name: "PostgreSQL", category: "Backend", slug: "postgresql", source: "devicon" },
+  { name: "Prisma", category: "Backend", slug: "prisma", source: "devicon" },
+  { name: "Bcrypt", category: "Backend", slug: "auth0", source: "simpleicons", color: "EB5424" },
+  { name: "PWA", category: "Expertise", slug: "pwa", source: "simpleicons", color: "5A0FC8" },
+  { name: "NextAuth", category: "Expertise", slug: "nextauth", source: "custom" },
+  { name: "Midtrans API", category: "Expertise", slug: "midtrans", source: "custom" },
+  { name: "JWT", category: "Expertise", slug: "jsonwebtokens", source: "simpleicons", color: "ffffff" },
   { name: "Git", category: "Tools", slug: "git", source: "devicon" }
 ];
 
@@ -131,67 +133,137 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- TECH STACK GRID --- */}
-      <div className="w-full bg-white/2 border-y border-white/10 py-24 z-20">
+      {/* --- TECH STACK (Categorized) --- */}
+      <section className="py-32 border-y border-white/10 bg-black/40 z-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <div className="space-y-4">
-              <p className="text-sm font-mono text-primary uppercase tracking-widest">Stack // Expertise</p>
-              <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tighter">Tools of <br/>the Trade.</h2>
+              <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-primary">Technical Arsenal</h2>
+              <p className="text-4xl md:text-5xl font-extrabold tracking-tighter uppercase">Powering <br/> Digital Solutions.</p>
             </div>
-            <p className="text-muted-foreground max-w-md text-lg border-l border-white/10 pl-6">
-              I leverage the best modern technologies to build scalable, high-performance, and secure applications.
-            </p>
+            <p className="text-muted-foreground max-w-sm">A curated list of technologies and tools I leverage to build high-performance digital products.</p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-            {techStack.map((tech, i) => (
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { 
+                title: "Core & Languages", 
+                items: techStack.filter(t => t.category === "Core") 
+              },
+              { 
+                title: "Frontend & Design", 
+                items: techStack.filter(t => t.category === "Frontend") 
+              },
+              { 
+                title: "Backend & Data", 
+                items: techStack.filter(t => t.category === "Backend") 
+              },
+              { 
+                title: "Integrations & Tools", 
+                items: techStack.filter(t => ["Expertise", "Tools"].includes(t.category)) 
+              }
+            ].map((group, i) => (
               <motion.div
-                key={tech.name}
+                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="flex flex-col gap-4 p-6 border border-white/5 hover:border-primary/30 hover:bg-white/5 rounded-none transition-all duration-300 group"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="p-8 rounded-3xl border border-white/5 bg-white/5 hover:border-primary/30 transition-colors group"
               >
-                <div className="w-10 h-10 flex items-center justify-center">
-                  {tech.source === "custom" ? (
-                    tech.slug === "midtrans" ? (
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <circle cx="12" cy="12" r="10" fill="#002B5B" />
-                        <rect x="7" y="9" width="2" height="6" rx="1" fill="#81A1C1" />
-                        <rect x="11" y="6" width="2" height="12" rx="1" fill="#5E81AC" />
-                        <rect x="15" y="9" width="2" height="6" rx="1" fill="#88C0D0" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white filter grayscale group-hover:grayscale-0 group-hover:text-primary transition-all duration-300">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <path d="M12 8v4" />
-                        <path d="M12 16h.01" />
-                      </svg>
-                    )
-                  ) : (
-                    <Image 
-                      src={tech.source === "devicon" 
-                        ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
-                        : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
-                      }
-                      alt={tech.name}
-                      width={40}
-                      height={40}
-                      className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                      unoptimized
-                    />
-                  )}
-                </div>
-                <div>
-                  <p className="font-bold text-white group-hover:text-primary transition-colors">{tech.name}</p>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{tech.category}</p>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-8 group-hover:text-primary transition-colors">{group.title}</h3>
+                <div className="grid grid-cols-3 gap-6">
+                  {group.items.map((tech, j) => (
+                    <div key={j} className="flex flex-col items-center gap-3 group/item">
+                      <div className="w-12 h-12 flex items-center justify-center p-2 bg-black/30 rounded-xl border border-white/5 group-hover/item:border-primary/50 transition-all duration-300">
+                        {tech.source === "custom" ? (
+                          tech.slug === "midtrans" ? (
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full filter grayscale group-hover/item:grayscale-0 transition-all duration-300">
+                              <circle cx="12" cy="12" r="10" fill="#002B5B" />
+                              <rect x="7" y="9" width="2" height="6" rx="1" fill="#81A1C1" />
+                              <rect x="11" y="6" width="2" height="12" rx="1" fill="#5E81AC" />
+                              <rect x="15" y="9" width="2" height="6" rx="1" fill="#88C0D0" />
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white filter grayscale group-hover/item:grayscale-0 group-hover/item:text-primary transition-all duration-300">
+                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                              <path d="M12 8v4" />
+                              <path d="M12 16h.01" />
+                            </svg>
+                          )
+                        ) : (
+                          <Image 
+                            src={tech.source === "devicon" 
+                              ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
+                              : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
+                            }
+                            alt={tech.name}
+                            width={40}
+                            height={40}
+                            className="w-full h-full object-contain filter grayscale group-hover/item:grayscale-0 transition-all duration-300"
+                            unoptimized
+                          />
+                        )}
+                      </div>
+                      <p className="text-[10px] font-medium text-muted-foreground group-hover/item:text-white transition-colors text-center">{tech.name}</p>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* --- SERVICES SECTION (The Core Offerings) --- */}
+      <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+          <div className="space-y-8">
+            <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-primary">Services</h2>
+            <h3 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-[0.9]">
+              Solving Problems <br/> with <span className="italic font-light">Code</span>.
+            </h3>
+            <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
+              I provide end-to-end digital development services, from initial concept to high-scale production.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            {[
+              { 
+                title: "Frontend Development", 
+                desc: "Crafting visually stunning, highly interactive, and responsive user interfaces.",
+                icon: <Code2 className="w-8 h-8 text-primary" />
+              },
+              { 
+                title: "Backend Architecture", 
+                desc: "Designing secure APIs and robust database systems for data-driven apps.",
+                icon: <Database className="w-8 h-8 text-primary" />
+              },
+              { 
+                title: "PWA & Mobile", 
+                desc: "Building installable web apps with offline capabilities and native-like feel.",
+                icon: <Smartphone className="w-8 h-8 text-primary" />
+              },
+              { 
+                title: "Fintech Integration", 
+                desc: "Seamless payment gateway integration and financial module development.",
+                icon: <Wallet className="w-8 h-8 text-primary" />
+              }
+            ].map((service, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className="p-8 border border-white/5 bg-white/2 hover:bg-white/5 hover:border-primary/30 transition-all duration-300 group rounded-2xl"
+              >
+                <div className="mb-6 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">{service.icon}</div>
+                <h4 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{service.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{service.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* --- 2. EXPERTISE (Grid Brutalist) --- */}
       <section id="about" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10">

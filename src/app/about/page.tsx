@@ -65,7 +65,7 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Location</p>
-              <p className="font-medium text-lg">Kota Bekasi, Jatiasih</p>
+              <p className="font-medium text-lg">Bekasi City, Jatiasih</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Role</p>

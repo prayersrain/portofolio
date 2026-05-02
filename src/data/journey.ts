@@ -16,7 +16,7 @@ export const journeyData: JourneyItem[] = [
     year: "Current",
     title: "Undergraduate Student (Semester 8)",
     company: "Universitas Gunadarma",
-    description: "Pursuing a Bachelor's degree in Informatics Engineering (Teknik Industri). Focusing on software engineering and modern web technologies.",
+    description: "Pursuing a Bachelor's degree in Informatics Engineering. Focusing on software engineering and modern web technologies.",
   },
   {
     year: "Previous",
