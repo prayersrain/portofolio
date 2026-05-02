@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { FileText, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 // Real Data
 import { journeyData } from "@/data/journey";
@@ -16,11 +19,17 @@ export default function AboutPage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mb-16"
+        className="mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
       >
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
           About <span className="text-primary italic">Me</span>.
         </h1>
+        <Link href="/cv">
+          <Button className="rounded-xl px-6 py-6 h-auto gap-3 text-lg font-bold bg-primary text-black hover:bg-primary/90">
+            <FileText className="w-5 h-5" />
+            Download CV
+          </Button>
+        </Link>
       </motion.div>
 
       {/* BIODATA SECTION */}

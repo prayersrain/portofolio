@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet } from "lucide-react";
+import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet, FileText } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
@@ -14,10 +14,15 @@ import { journeyData } from "@/data/journey";
 const techStack = [
   { name: "Next.js", category: "Core", slug: "nextjs", source: "devicon" },
   { name: "TypeScript", category: "Core", slug: "typescript", source: "devicon" },
+  { name: "Python", category: "Core", slug: "python", source: "devicon" },
+  { name: "PHP", category: "Core", slug: "php", source: "devicon" },
   { name: "Node.js", category: "Core", slug: "nodejs", source: "devicon" },
+  { name: "HTML5", category: "Frontend", slug: "html5", source: "devicon" },
+  { name: "CSS3", category: "Frontend", slug: "css3", source: "devicon" },
   { name: "React", category: "Frontend", slug: "react", source: "devicon" },
   { name: "Tailwind CSS", category: "Frontend", slug: "tailwindcss", source: "simpleicons", color: "06B6D4" },
   { name: "Framer Motion", category: "Frontend", slug: "framer", source: "simpleicons", color: "0055FF" },
+  { name: "Laravel", category: "Backend", slug: "laravel", source: "devicon" },
   { name: "PostgreSQL", category: "Backend", slug: "postgresql", source: "devicon" },
   { name: "Prisma", category: "Backend", slug: "prisma", source: "devicon" },
   { name: "Bcrypt", category: "Backend", slug: "auth0", source: "simpleicons", color: "EB5424" },
@@ -110,12 +115,18 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex gap-6 pt-6"
+              className="flex flex-wrap gap-4 pt-6"
             >
               <Link href="#projects">
                 <Button size="lg" className="rounded-none px-8 h-16 text-lg group bg-white text-black hover:bg-white/90">
                   See My Work
                   <ArrowUpRight className="ml-3 w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/cv">
+                <Button size="lg" variant="outline" className="rounded-none px-8 h-16 text-lg border-white/20 hover:bg-white/5 gap-3">
+                  <FileText className="w-6 h-6 text-primary" />
+                  Download CV
                 </Button>
               </Link>
             </motion.div>
