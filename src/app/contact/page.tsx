@@ -3,31 +3,36 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
+import ScrambleText from "@/components/ScrambleText";
+
 export default function ContactPage() {
   return (
-    <div className="min-h-screen pt-32 pb-16 px-6 md:px-12 max-w-4xl mx-auto flex flex-col items-center justify-center">
+    <div className="min-h-screen pt-40 pb-24 px-6 md:px-12 max-w-6xl mx-auto flex flex-col items-center">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center space-y-6 w-full"
+        transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
+        className="text-center space-y-8 w-full border-b border-white/10 pb-16"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-          Let&apos;s <span className="text-primary italic">Talk</span>.
+        <p className="text-primary font-mono text-xs uppercase tracking-[0.3em]">Ready to start?</p>
+        <h1 className="text-5xl md:text-[4vw] font-black uppercase leading-none">
+          <ScrambleText text="Let's" /> <br/>
+          <span className="text-primary italic"><ScrambleText text="Talk." /></span>
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Have an amazing idea or need help bringing your digital product to life? Don&apos;t hesitate to reach out.
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
+          Have an amazing idea or need help bringing your digital product to life? <br className="hidden md:block" /> 
+          Let&apos;s create something extraordinary together.
         </p>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-16 w-full max-w-md p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl"
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.77, 0, 0.175, 1] }}
+        className="mt-20 w-full max-w-2xl p-10 md:p-16 border border-white/5 bg-white/[0.02] backdrop-blur-3xl"
       >
         <form 
-          className="space-y-6" 
+          className="space-y-10" 
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.currentTarget);
@@ -42,40 +47,40 @@ export default function ContactPage() {
             window.open(whatsappUrl, "_blank");
           }}
         >
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Your Name</label>
+          <div className="space-y-3">
+            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Full Name</label>
             <input 
               name="name"
               type="text" 
               required
-              placeholder="John Doe"
-              className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+              placeholder="YOUR NAME"
+              className="w-full px-0 py-4 bg-transparent border-b border-white/10 focus:border-primary outline-none transition-all placeholder:text-white/10 uppercase font-bold text-lg"
             />
           </div>
           
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Email</label>
+          <div className="space-y-3">
+            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Email Address</label>
             <input 
               name="email"
               type="email" 
               required
-              placeholder="john@example.com"
-              className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+              placeholder="EMAIL@DOMAIN.COM"
+              className="w-full px-0 py-4 bg-transparent border-b border-white/10 focus:border-primary outline-none transition-all placeholder:text-white/10 uppercase font-bold text-lg"
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Message</label>
+          <div className="space-y-3">
+            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Message</label>
             <textarea 
               name="message"
               rows={4}
               required
-              placeholder="Tell me about your project..."
-              className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none"
+              placeholder="TELL ME ABOUT YOUR VISION..."
+              className="w-full px-0 py-4 bg-transparent border-b border-white/10 focus:border-primary outline-none transition-all placeholder:text-white/10 uppercase font-bold text-lg resize-none"
             />
           </div>
 
-          <Button type="submit" size="lg" className="w-full rounded-xl py-6 text-lg font-bold">
+          <Button type="submit" size="lg" className="w-full rounded-none py-8 text-xl font-black bg-primary text-black hover:bg-white transition-colors uppercase tracking-widest">
             Send Message
           </Button>
         </form>

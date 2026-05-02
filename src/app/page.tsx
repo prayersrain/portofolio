@@ -10,6 +10,16 @@ import { projectsData } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 
 import { journeyData } from "@/data/journey";
+import ScrambleText from "@/components/ScrambleText";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useGSAP } from "@gsap/react";
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+}
 
 const techStack = [
   { name: "Next.js", category: "Core", slug: "nextjs", source: "devicon" },
@@ -48,7 +58,15 @@ const getProjectLayout = (index: number) => {
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
+  const journeyRef = useRef(null);
+  
   const { scrollYProgress } = useScroll({ target: containerRef });
+  const { scrollYProgress: journeyProgress } = useScroll({
+    target: journeyRef,
+    offset: ["start center", "end center"]
+  });
+
+  const journeyLineHeight = useTransform(journeyProgress, [0, 1], ["0%", "100%"]);
   const yParallax = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   useEffect(() => {
@@ -58,6 +76,61 @@ export default function Home() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  useGSAP(() => {
+    // Reveal animation for Journey items
+    gsap.from(".journey-card", {
+      opacity: 0,
+      x: -50,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: ".journey-section",
+        start: "top 70%",
+      }
+    });
+
+    // Parallax background text for Projects
+    gsap.to(".projects-bg-text", {
+      xPercent: -20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#projects",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      }
+    });
+
+    // Fade in effect for tech stack items
+    gsap.from(".tech-card", {
+      opacity: 0,
+      y: 30,
+      stagger: 0.05,
+      scrollTrigger: {
+        trigger: ".tech-grid",
+        start: "top 80%",
+      }
+    });
+
+    // Hero Text Reveal
+    const heroTl = gsap.timeline();
+    heroTl.from(".hero-line span", {
+      y: 100,
+      rotate: 5,
+      stagger: 0.1,
+      duration: 1,
+      ease: "power4.out",
+      opacity: 0
+    });
+  }, { scope: containerRef });
+
+  const scrollToSection = (id: string) => {
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: { y: id, autoKill: true },
+      ease: "power4.inOut"
+    });
+  };
 
   return (
     <div ref={containerRef} className="flex flex-col min-h-screen overflow-hidden bg-black selection:bg-primary/30 scroll-smooth">
@@ -84,11 +157,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10 mt-10">
           <div className="lg:col-span-9 space-y-8">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+            <div className="hero-line overflow-hidden">
               <Badge variant="outline" className="px-4 py-2 text-sm border-white/20 bg-white/5 rounded-full backdrop-blur-sm inline-flex items-center gap-2 mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -96,40 +165,38 @@ export default function Home() {
                 </span>
                 Porto
               </Badge>
-              <h1 className="text-6xl md:text-[8rem] font-extrabold tracking-tighter leading-[0.9] uppercase">
-                Creative <br/>
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-500 italic">Developer.</span>
-              </h1>
-            </motion.div>
+            </div>
 
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-xl md:text-3xl text-muted-foreground max-w-2xl font-light border-l-2 border-primary pl-6"
-            >
-              Hi, I&apos;m Fauzan. I engineer <span className="text-white font-medium">highly-performant</span> and visually stunning web applications.
-            </motion.p>
+            <div className="hero-line overflow-hidden">
+                <h1 className="text-[7.5vw] md:text-[4vw] font-black leading-none uppercase">
+                  <span className="inline-block"><ScrambleText text="Creative" /></span> <br/>
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-500 italic inline-block"><ScrambleText text="Developer." /></span>
+                </h1>
+            </div>
+
+            <div className="hero-line overflow-hidden">
+              <p className="text-xl md:text-3xl text-muted-foreground max-w-2xl font-light border-l-2 border-primary pl-6">
+                <span className="inline-block">Hi, I&apos;m Fauzan. I engineer <span className="text-white font-medium">highly-performant</span> and visually stunning web applications.</span>
+              </p>
+            </div>
             
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-wrap gap-4 pt-6"
-            >
-              <Link href="#projects">
-                <Button size="lg" className="rounded-none px-8 h-16 text-lg group bg-white text-black hover:bg-white/90">
-                  See My Work
-                  <ArrowUpRight className="ml-3 w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </Button>
-              </Link>
+            <div className="flex flex-wrap gap-4 pt-6 hero-line overflow-hidden">
+              <Button 
+                onClick={() => scrollToSection("#projects")}
+                size="lg" 
+                className="rounded-none px-8 h-16 text-lg group bg-white text-black hover:bg-white/90"
+              >
+                See My Work
+                <ArrowUpRight className="ml-3 w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </Button>
+              
               <Link href="/cv">
                 <Button size="lg" variant="outline" className="rounded-none px-8 h-16 text-lg border-white/20 hover:bg-white/5 gap-3">
                   <FileText className="w-6 h-6 text-primary" />
                   Download CV
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           </div>
 
           <div className="hidden lg:flex lg:col-span-3 justify-end items-center">
@@ -155,7 +222,7 @@ export default function Home() {
             <p className="text-muted-foreground max-w-sm">A curated list of technologies and tools I leverage to build high-performance digital products.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 tech-grid">
             {[
               { 
                 title: "Core & Languages", 
@@ -174,13 +241,9 @@ export default function Home() {
                 items: techStack.filter(t => ["Expertise", "Tools"].includes(t.category)) 
               }
             ].map((group, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="p-8 rounded-3xl border border-white/5 bg-white/5 hover:border-primary/30 transition-colors group"
+                className="p-8 rounded-3xl border border-white/5 bg-white/5 hover:border-primary/30 transition-colors group tech-card"
               >
                 <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-8 group-hover:text-primary transition-colors">{group.title}</h3>
                 <div className="grid grid-cols-3 gap-6">
@@ -220,7 +283,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -320,40 +383,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- 3. EXPERIENCE (Typography Timeline) --- */}
-      <section id="experience" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10 bg-white/2 border-y border-white/10">
-        <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-20 text-center">Journey.</h2>
+      {/* --- 4. JOURNEY (Vertical Timeline with Tracing Line) --- */}
+      <section id="journey" ref={journeyRef} className="journey-section py-32 px-6 relative overflow-hidden bg-neutral-950">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-4">
+            <div>
+              <h2 className="text-sm font-mono text-primary uppercase tracking-[0.3em] mb-4">My Progression</h2>
+              <h3 className="text-3xl md:text-[4vw] font-black uppercase leading-none">
+                <ScrambleText text="Career" /> <br/>
+                <ScrambleText text="Journey" />
+              </h3>
+            </div>
+          </div>
 
-        <div className="flex flex-col border-t border-white/10">
-          {journeyData.map((item, index) => (
+          <div className="relative space-y-12">
+            {/* Static Background Line */}
+            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2 hidden md:block" />
+            
+            {/* Animated Tracing Line */}
             <motion.div 
-              key={index} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-6 py-12 border-b border-white/10 group hover:bg-white/3 transition-colors px-6"
-            >
-              <div className="md:col-span-3 text-2xl md:text-4xl font-light text-muted-foreground group-hover:text-primary transition-colors flex flex-col justify-center">
-                {item.year.split(" - ")[0]} 
-                {item.year.includes("-") && <span className="text-sm mt-1 uppercase tracking-widest block">To {item.year.split(" - ")[1]}</span>}
-              </div>
-              <div className="md:col-span-9 space-y-4">
-                <h3 className="text-3xl md:text-4xl font-bold">{item.title}</h3>
-                <div className="flex items-center gap-4">
-                  <p className="text-xl text-primary font-medium">{item.company}</p>
-                  <span className="hidden md:block text-xs uppercase tracking-widest text-muted-foreground border border-white/20 px-2 py-1 rounded-full">{item.year}</span>
+              className="absolute left-0 md:left-1/2 top-0 w-[2px] bg-primary -translate-x-1/2 hidden md:block"
+              style={{ height: journeyLineHeight, originY: 0 }}
+            />
+            {journeyData.map((item, index) => (
+              <div 
+                key={index} 
+                className={`journey-card relative flex flex-col md:flex-row gap-8 items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+              >
+                {/* Dot */}
+                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full -translate-x-1/2 mt-2 z-10 hidden md:block" />
+                
+                <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12 md:text-right'}`}>
+                  <div className="text-sm font-mono text-primary mb-2">{item.year}</div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{item.description}</p>
                 </div>
-                <p className="text-lg text-muted-foreground/80 max-w-3xl leading-relaxed">{item.description}</p>
+                <div className="hidden md:block md:w-1/2" />
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* --- 4. PROJECTS (Isometric Phone Mockups + Masonry Grid) --- */}
-      <section id="projects" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10 overflow-hidden">
-        <div className="flex justify-between items-end mb-24 border-b border-white/10 pb-8">
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter">Selected <br/><span className="text-primary text-stroke">Works.</span></h2>
+      <section id="projects" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10 overflow-hidden relative">
+        
+        {/* GSAP BACKGROUND TEXT */}
+        <div className="absolute top-20 left-0 whitespace-nowrap opacity-[0.08] select-none pointer-events-none z-0 overflow-hidden w-full">
+          <span className="projects-bg-text text-[15rem] md:text-[25rem] font-black uppercase inline-block">
+            PROJECTS PROJECTS PROJECTS
+          </span>
+        </div>
+
+        <div className="flex justify-between items-end mb-24 border-b border-white/10 pb-8 relative z-10">
+          <h2 className="text-3xl md:text-[4vw] font-black uppercase leading-tight">
+            <ScrambleText text="Selected" /> <br/>
+            <span className="text-primary text-stroke"><ScrambleText text="Works." /></span>
+          </h2>
           <Button variant="ghost" className="hidden md:flex text-lg group">
             View Archive <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </Button>
@@ -369,10 +455,16 @@ export default function Home() {
               transition={{ duration: 0.7, delay: (index % 3) * 0.1 }}
               className={getProjectLayout(index)}
             >
-              <Link href={`/projects/${project.id}`} className="group block relative w-full h-full rounded-3xl overflow-hidden border border-white/5 bg-neutral-900 hover:bg-neutral-800 transition-colors duration-500" style={{ perspective: "1000px" }}>
+              <Link href={`/projects/${project.id}`} className="group block relative w-full h-full rounded-3xl overflow-hidden border border-white/5 bg-neutral-900 hover:bg-neutral-800 transition-colors duration-500 project-card-hover" style={{ perspective: "1000px" }}>
                 
                 {/* Desktop Background (Red Scribble) */}
-                <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+                <motion.div 
+                  initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
+                  whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                  transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+                  viewport={{ once: true }}
+                  className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700"
+                >
                   <Image 
                     src={project.image} 
                     alt={`${project.title} Desktop`} 
@@ -381,7 +473,7 @@ export default function Home() {
                     className="object-cover object-top-left" 
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/60 to-black/20" />
-                </div>
+                </motion.div>
 
                 {/* Isometric Tilted Smartphone Mockup inside the Card (White Circle) */}
                 <div 
@@ -410,7 +502,9 @@ export default function Home() {
                         <span key={tech} className="text-[10px] md:text-xs uppercase tracking-widest font-mono bg-primary/20 text-primary px-3 py-1 backdrop-blur-sm">{tech}</span>
                       ))}
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-2">{project.title}</h3>
+                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-2">
+                      <ScrambleText text={project.title} />
+                    </h3>
                   </div>
                 </div>
 
@@ -469,33 +563,40 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-primary text-black p-12 md:p-24 rounded-none flex flex-col md:flex-row justify-between items-start md:items-end gap-12"
+          className="bg-primary text-black p-10 md:p-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20"
         >
-          <div>
-            <p className="text-black/60 font-bold uppercase tracking-widest mb-4">Got an idea?</p>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
-              Let&apos;s build <br/> something <br/> great.
+          <div className="space-y-6">
+            <p className="text-black/60 font-bold uppercase tracking-widest text-xs">Got an idea?</p>
+            <h2 className="text-[6.5vw] md:text-[2.5vw] font-black leading-none uppercase">
+              <ScrambleText text="Let's build" /> <br/>
+              <ScrambleText text="something" /> <br/>
+              <ScrambleText text="great." />
             </h2>
           </div>
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <p className="text-black/60 font-bold uppercase tracking-widest text-sm">Reach Out</p>
-              <a href="mailto:cornwerso5118@gmail.com" className="text-xl md:text-3xl font-bold block hover:underline underline-offset-8 decoration-4 break-all">cornwerso5118@gmail.com</a>
-              <Link href="/contact" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4 text-black/80 relative z-50">
-                Send Message
-              </Link>
+
+          <div className="flex flex-col justify-between h-full space-y-10">
+            <div className="space-y-6">
+              <p className="text-black/60 font-bold uppercase tracking-widest text-[10px] border-b border-black/10 pb-2">Reach Out</p>
+              <div className="space-y-4">
+                <a href="mailto:cornwerso5118@gmail.com" className="text-lg md:text-xl font-bold block hover:opacity-70 transition-opacity break-words">
+                  cornwerso5118@gmail.com
+                </a>
+                <Link href="/contact" className="text-lg md:text-xl font-bold block hover:opacity-70 transition-opacity flex items-center gap-2">
+                  Send Message <ArrowUpRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
             
-            <div className="space-y-4 pt-4 border-t border-black/20">
-               <p className="text-black/60 font-bold uppercase tracking-widest text-sm">Socials</p>
-               <div className="flex flex-wrap gap-4">
-                 <a href="https://github.com/prayersrain" target="_blank" className="font-bold uppercase border border-black px-6 py-3 hover:bg-black hover:text-primary transition-colors">
-                   GitHub
-                 </a>
-                 <a href="https://instagram.com/prayersrain_" target="_blank" className="font-bold uppercase border border-black px-6 py-3 hover:bg-black hover:text-primary transition-colors">
-                   Instagram
-                 </a>
-               </div>
+            <div className="space-y-4">
+              <p className="text-black/60 font-bold uppercase tracking-widest text-sm border-b border-black/20 pb-2">Socials</p>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a href="https://github.com/prayersrain" target="_blank" className="font-bold uppercase border border-black px-6 py-3 hover:bg-black hover:text-primary transition-colors text-xs">
+                  GitHub
+                </a>
+                <a href="https://instagram.com/prayersrain_" target="_blank" className="font-bold uppercase border border-black px-6 py-3 hover:bg-black hover:text-primary transition-colors text-xs">
+                  Instagram
+                </a>
+              </div>
             </div>
           </div>
         </motion.div>

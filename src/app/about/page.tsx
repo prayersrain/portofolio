@@ -4,99 +4,107 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowLeft } from "lucide-react";
+import { FileText } from "lucide-react";
 import Link from "next/link";
 
 // Real Data
 import { journeyData } from "@/data/journey";
 
+import ScrambleText from "@/components/ScrambleText";
+
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-32 pb-16 px-6 md:px-12 max-w-5xl mx-auto">
+    <div className="min-h-screen pt-40 pb-24 px-6 md:px-12 max-w-6xl mx-auto">
       
       {/* HEADER ABOUT */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
+        transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
+        className="mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-b border-white/10 pb-10"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-          About <span className="text-primary italic">Me</span>.
+        <h1 className="text-5xl md:text-[4vw] font-black uppercase leading-none">
+          <ScrambleText text="About" /> <br/>
+          <span className="text-primary italic"><ScrambleText text="Me." /></span>
         </h1>
         <Link href="/cv">
-          <Button className="rounded-xl px-6 py-6 h-auto gap-3 text-lg font-bold bg-primary text-black hover:bg-primary/90">
-            <FileText className="w-5 h-5" />
+          <Button className="rounded-none px-8 py-8 h-auto gap-4 text-xl font-black bg-white text-black hover:bg-white/90 uppercase tracking-tighter">
+            <FileText className="w-6 h-6" />
             Download CV
           </Button>
         </Link>
       </motion.div>
 
       {/* BIODATA SECTION */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start mb-24">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-32">
         {/* Foto Profil */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative w-full aspect-square rounded-3xl overflow-hidden border border-white/10 bg-white/5"
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.77, 0, 0.175, 1] }}
+          className="lg:col-span-4 relative aspect-[4/5] rounded-none overflow-hidden border border-white/10 bg-neutral-900 group"
         >
           <Image 
             src="/profile.jpg" 
             alt="M Fauzan Haikal Mugni" 
             fill 
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover grayscale hover:grayscale-0 transition-all duration-500" 
+            sizes="(max-width: 1024px) 100vw, 33vw"
+            className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" 
           />
-          <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.8)] pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
         </motion.div>
 
         {/* Info Biodata */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="lg:col-span-2 space-y-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.77, 0, 0.175, 1] }}
+          className="lg:col-span-8 space-y-12"
         >
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold">M Fauzan Haikal Mugni.</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I am a 22-year-old passionate software developer focused on modern web ecosystems. 
-              Currently in my 8th semester studying Informatics Engineering at Universitas Gunadarma, 
-              I enjoy solving complex problems and transforming them into robust, user-friendly applications.
+          <div className="space-y-6">
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">
+              M Fauzan <br/>
+              <span className="text-primary">Haikal Mugni.</span>
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl font-light">
+              I am a 22-year-old software developer crafting modern web ecosystems. 
+              Currently finalizing my Informatics Engineering degree at Universitas Gunadarma, 
+              I specialize in bridging complex logic with intuitive aesthetics.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 py-10 border-y border-white/5">
             <div>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Email</p>
-              <p className="font-medium text-lg">cornwerso5118@gmail.com</p>
+              <p className="text-xs text-primary font-mono uppercase tracking-[0.3em] mb-2">Email</p>
+              <p className="font-bold text-xl uppercase">cornwerso5118@gmail.com</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Location</p>
-              <p className="font-medium text-lg">Bekasi City, Jatiasih</p>
+              <p className="text-xs text-primary font-mono uppercase tracking-[0.3em] mb-2">Location</p>
+              <p className="font-bold text-xl uppercase">Bekasi, Indonesia</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Role</p>
-              <p className="font-medium text-lg">Full Stack Developer</p>
+              <p className="text-xs text-primary font-mono uppercase tracking-[0.3em] mb-2">Role</p>
+              <p className="font-bold text-xl uppercase">Full Stack Developer</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Age</p>
-              <p className="font-medium text-lg">22 Years Old</p>
+              <p className="text-xs text-primary font-mono uppercase tracking-[0.3em] mb-2">Status</p>
+              <p className="font-bold text-xl uppercase">Available for Work</p>
             </div>
           </div>
         </motion.div>
       </div>
 
       {/* TIMELINE SECTION */}
-      <motion.h2 
+      <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="text-3xl font-bold mb-10"
+        className="mb-16"
       >
-        My <span className="text-primary italic">Journey</span>.
-      </motion.h2>
+        <h2 className="text-4xl md:text-[3vw] font-black uppercase leading-none mb-12">
+          My <span className="text-primary italic"><ScrambleText text="Journey" /></span>
+        </h2>
+      </motion.div>
 
       <div className="relative border-l-2 border-white/10 ml-4 md:ml-0">
         {journeyData.map((item, index) => (

@@ -3,64 +3,69 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowUpRight } from "lucide-react";
 import { projectsData } from "@/data/projects";
+
+import ScrambleText from "@/components/ScrambleText";
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
+    <div className="min-h-screen pt-40 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="space-y-4 mb-16 text-center md:text-left"
+        transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
+        className="space-y-6 mb-24 border-b border-white/10 pb-16"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-          All <span className="text-primary italic">Projects</span>.
+        <p className="text-primary font-mono text-xs uppercase tracking-[0.3em]">Case Studies & Experiments</p>
+        <h1 className="text-5xl md:text-[4vw] font-black uppercase leading-none">
+          All <span className="text-primary italic"><ScrambleText text="Projects." /></span>
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
-          A collection of my digital works and explorations. Click on a project to view its details and documentation.
+        <p className="text-xl text-muted-foreground max-w-3xl font-light leading-relaxed">
+          A curated collection of digital experiences, ranging from complex full-stack applications 
+          to experimental front-end interactions.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {projectsData.map((project, index) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="h-full"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.77, 0, 0.175, 1] }}
+            className="group"
           >
-            <Link href={`/projects/${project.id}`} className="h-full block">
-              <Card className="overflow-hidden border-white/10 bg-white/5 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300 group cursor-pointer h-full flex flex-col">
-                <div className="relative w-full h-48 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent" />
+            <Link href={`/projects/${project.id}`} className="block space-y-6">
+              <div className="relative aspect-video overflow-hidden bg-neutral-900 border border-white/5">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-xl md:text-2xl font-black uppercase leading-tight group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <ArrowUpRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                
-                <CardHeader>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">{project.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">{project.description}</CardDescription>
-                </CardHeader>
-                
-                <CardContent className="flex-1 flex items-end pb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <Badge key={tech} variant="secondary" className="bg-white/10 hover:bg-white/20 transition-colors">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                <p className="text-muted-foreground line-clamp-2 font-light leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {project.techStack.slice(0, 3).map((tech) => (
+                    <span key={tech} className="text-[10px] font-mono text-primary uppercase tracking-widest">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </Link>
           </motion.div>
         ))}

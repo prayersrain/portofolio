@@ -17,6 +17,8 @@ const GithubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+import ScrambleText from "@/components/ScrambleText";
+
 export default function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const project = projectsData.find((p) => p.id === resolvedParams.id);
@@ -24,27 +26,27 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <h1 className="text-3xl font-bold">Project Not Found</h1>
+        <h1 className="text-3xl font-black uppercase">Project Not Found</h1>
         <Link href="/">
-          <Button variant="outline">Back to Home</Button>
+          <Button variant="outline" className="rounded-none">Back to Home</Button>
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
+    <div className="min-h-screen pt-40 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
       
       {/* Tombol Back */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
       >
         <Link href="/#projects">
-          <Button variant="ghost" className="mb-8 pl-0 hover:bg-transparent hover:text-primary">
-            <ArrowLeft className="mr-2 w-4 h-4" />
-            Back to Projects
+          <Button variant="ghost" className="mb-12 pl-0 hover:bg-transparent hover:text-primary uppercase font-mono text-xs tracking-widest gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Case Studies
           </Button>
         </Link>
       </motion.div>
@@ -53,15 +55,21 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="space-y-6 mb-16"
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.77, 0, 0.175, 1] }}
+        className="space-y-8 mb-24 border-b border-white/10 pb-12"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">{project.title}</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl">{project.description}</p>
+        <div className="space-y-4">
+          <p className="text-primary font-mono text-xs uppercase tracking-[0.3em]">Project Case Study</p>
+          <h1 className="text-5xl md:text-[4vw] font-black uppercase leading-none">
+            <ScrambleText text={project.title} />
+          </h1>
+        </div>
         
-        <div className="flex flex-wrap gap-2 pt-2">
+        <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl font-light leading-relaxed">{project.description}</p>
+        
+        <div className="flex flex-wrap gap-3 pt-4">
           {project.techStack.map((tech) => (
-            <Badge key={tech} variant="secondary" className="px-4 py-1 text-sm bg-primary/10 text-primary border-primary/20">
+            <Badge key={tech} variant="secondary" className="px-5 py-2 text-xs font-mono uppercase bg-white/5 text-white border-white/10 rounded-none">
               {tech}
             </Badge>
           ))}
