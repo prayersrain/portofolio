@@ -17,33 +17,99 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 import { Button } from "./ui/button";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 export function Navbar() {
-  return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      // Efek glassmorphism: bg transparan & backdrop blur
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-white/10 bg-background/60 backdrop-blur-md"
-    >
-      <Link href="/" className="text-xl font-bold tracking-tighter">
-        Zan<span className="text-primary">.</span>
-      </Link>
-      
-      <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-        <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-        <Link href="/about" className="hover:text-foreground transition-colors">About</Link>
-        <Link href="/#projects" className="hover:text-foreground transition-colors">Projects</Link>
-      </div>
+  const [isOpen, setIsOpen] = useState(false);
 
-      <div className="flex items-center gap-2">
-        <Link href="https://github.com/prayersrain" target="_blank">
-          <Button variant="ghost" size="icon">
-            <GithubIcon className="w-5 h-5" />
-          </Button>
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/contact", label: "Contact" },
+  ];
+
+  return (
+    <>
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-white/10 bg-background/60 backdrop-blur-md"
+      >
+        <Link href="/" className="text-xl font-bold tracking-tighter">
+          Zan<span className="text-primary">.</span>
         </Link>
-      </div>
-    </motion.nav>
+        
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:text-foreground transition-colors">
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Link href="https://github.com/prayersrain" target="_blank" className="hidden sm:block">
+            <Button variant="ghost" size="icon">
+              <GithubIcon className="w-5 h-5" />
+            </Button>
+          </Link>
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden" 
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </Button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-40 bg-black md:hidden flex flex-col items-center justify-center gap-8"
+          >
+            {navLinks.map((link) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Link 
+                  href={link.href} 
+                  className="text-4xl font-bold hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex gap-6 mt-8"
+            >
+              <Link href="https://github.com/prayersrain" target="_blank">
+                <GithubIcon className="w-8 h-8" />
+              </Link>
+              {/* Add more social icons here if needed */}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

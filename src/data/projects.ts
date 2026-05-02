@@ -8,6 +8,7 @@ export type Project = {
   liveUrl?: string;
   image: string;
   imageMobile?: string;
+  isFramable?: boolean;
 };
 
 export const projectsData: Project[] = [
@@ -29,9 +30,10 @@ export const projectsData: Project[] = [
     longDescription: "A Progressive Web App (PWA) enabling administrators to track operations, manage inventory (such as an iPhone registry system), and support offline usage in weak network conditions.",
     techStack: ["Next.js", "TypeScript", "PWA"],
     githubUrl: "https://github.com/prayersrain/backoffice-monitoring",
-    liveUrl: "https://backoffice-monitoring.vercel.app/",
+    liveUrl: "https://backoffice-monitoring.vercel.app/login",
     image: "/projects/desktop/screencapture-backoffice-monitoring-vercel-app-login-2026-04-30-17_40_31.png",
     imageMobile: "/projects/iPhone-12-PRO-backoffice-monitoring.vercel.app.webp",
+    isFramable: false,
   },
   {
     id: "yoyobolen-backoffice",
@@ -40,9 +42,10 @@ export const projectsData: Project[] = [
     longDescription: "This system integrates order tracking, financial modules, and a dynamic multi-bank payment solution (Virtual Account) using the Midtrans Core API.",
     techStack: ["Next.js", "TypeScript", "Prisma", "Midtrans API"],
     githubUrl: "https://github.com/prayersrain/yoyobolen-backoffice",
-    liveUrl: "https://yoyobolen-backoffice.vercel.app/",
+    liveUrl: "https://yoyobolen-backoffice.vercel.app/login",
     image: "/projects/desktop/screencapture-yoyobolen-backoffice-vercel-app-login-2026-04-30-17_40_23.png",
     imageMobile: "/projects/iPhone-12-PRO-yoyobolen-backoffice.vercel.app.webp",
+    isFramable: false,
   },
   {
     id: "easeyourneeds-web",

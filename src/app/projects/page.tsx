@@ -43,7 +43,7 @@ export default function ProjectsPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent" />
                 </div>
                 
                 <CardHeader>

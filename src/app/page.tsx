@@ -1,38 +1,29 @@
 "use client";
 
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Cpu, ArrowUpRight, Sparkles, Code2 } from "lucide-react";
+import { Cpu, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
 import { projectsData } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 
-const journeyData = [
-  {
-    year: "2022 - Present",
-    title: "Full Stack Developer",
-    company: "Karya Mandiri Dental",
-    description: "Responsible for designing, developing, and maintaining comprehensive digital solutions and web applications for Karya Mandiri Dental.",
-  },
-  {
-    year: "Current",
-    title: "Undergraduate Student (Semester 8)",
-    company: "Universitas Gunadarma",
-    description: "Pursuing a Bachelor's degree in Informatics Engineering (Teknik Industri). Focusing on software engineering and modern web technologies.",
-  },
-  {
-    year: "Previous",
-    title: "Vocational High School Student",
-    company: "SMKN 1 Kota Bekasi",
-    description: "Graduated with foundational knowledge in technology and engineering, preparing for a career in software development.",
-  }
-];
+import { journeyData } from "@/data/journey";
 
 const techStack = [
-  "React", "Next.js", "TypeScript", "Tailwind CSS", 
-  "Node.js", "PostgreSQL", "Prisma", "Framer Motion"
+  { name: "React", category: "Frontend", slug: "react", source: "devicon" },
+  { name: "Next.js", category: "Frontend", slug: "nextjs", source: "devicon" },
+  { name: "TypeScript", category: "Languages", slug: "typescript", source: "devicon" },
+  { name: "Tailwind CSS", category: "Styling", slug: "tailwindcss", source: "devicon" },
+  { name: "Node.js", category: "Backend", slug: "nodejs", source: "devicon" },
+  { name: "PostgreSQL", category: "Database", slug: "postgresql", source: "devicon" },
+  { name: "Prisma", category: "ORM", slug: "prisma", source: "devicon" },
+  { name: "Framer Motion", category: "Animation", slug: "framer", source: "simpleicons", color: "0055FF" },
+  { name: "PWA", category: "Web App", slug: "pwa", source: "simpleicons", color: "5A0FC8" },
+  { name: "NextAuth", category: "Security", slug: "nextauth", source: "custom" },
+  { name: "Midtrans API", category: "Payment", slug: "midtrans", source: "custom" },
+  { name: "Git", category: "Tools", slug: "git", source: "devicon" }
 ];
 
 // Asymmetrical layout logic for projects
@@ -91,7 +82,7 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Badge variant="outline" className="px-4 py-2 text-sm border-white/20 bg-white/5 rounded-full backdrop-blur-sm flex inline-flex items-center gap-2 mb-6">
+              <Badge variant="outline" className="px-4 py-2 text-sm border-white/20 bg-white/5 rounded-full backdrop-blur-sm inline-flex items-center gap-2 mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -100,7 +91,7 @@ export default function Home() {
               </Badge>
               <h1 className="text-6xl md:text-[8rem] font-extrabold tracking-tighter leading-[0.9] uppercase">
                 Digital <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500 italic">Architect.</span>
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-500 italic">Architect.</span>
               </h1>
             </motion.div>
 
@@ -110,7 +101,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-xl md:text-3xl text-muted-foreground max-w-2xl font-light border-l-2 border-primary pl-6"
             >
-              Hi, I'm Fauzan. I engineer <span className="text-white font-medium">highly-performant</span> and visually stunning web applications.
+              Hi, I&apos;m Fauzan. I engineer <span className="text-white font-medium">highly-performant</span> and visually stunning web applications.
             </motion.p>
             
             <motion.div 
@@ -141,21 +132,61 @@ export default function Home() {
       </section>
 
       {/* --- TECH STACK GRID --- */}
-      <div className="w-full bg-white/[0.02] border-y border-white/10 py-12 z-20">
+      <div className="w-full bg-white/2 border-y border-white/10 py-24 z-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <p className="text-sm font-mono text-primary mb-8 uppercase tracking-widest text-center md:text-left">Frameworks & Technologies</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="space-y-4">
+              <p className="text-sm font-mono text-primary uppercase tracking-widest">Stack // Expertise</p>
+              <h2 className="text-5xl md:text-6xl font-bold uppercase tracking-tighter">Tools of <br/>the Trade.</h2>
+            </div>
+            <p className="text-muted-foreground max-w-md text-lg border-l border-white/10 pl-6">
+              I leverage the best modern technologies to build scalable, high-performance, and secure applications.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
             {techStack.map((tech, i) => (
               <motion.div
-                key={tech}
+                key={tech.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="flex items-center gap-3 p-4 border border-white/5 hover:border-primary/30 hover:bg-white/5 rounded-none transition-all duration-300 group"
+                className="flex flex-col gap-4 p-6 border border-white/5 hover:border-primary/30 hover:bg-white/5 rounded-none transition-all duration-300 group"
               >
-                <Code2 className="text-muted-foreground group-hover:text-primary transition-colors w-5 h-5" />
-                <span className="font-bold text-white/80 group-hover:text-white transition-colors">{tech}</span>
+                <div className="w-10 h-10 flex items-center justify-center">
+                  {tech.source === "custom" ? (
+                    tech.slug === "midtrans" ? (
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <circle cx="12" cy="12" r="10" fill="#002B5B" />
+                        <rect x="7" y="9" width="2" height="6" rx="1" fill="#81A1C1" />
+                        <rect x="11" y="6" width="2" height="12" rx="1" fill="#5E81AC" />
+                        <rect x="15" y="9" width="2" height="6" rx="1" fill="#88C0D0" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white filter grayscale group-hover:grayscale-0 group-hover:text-primary transition-all duration-300">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        <path d="M12 8v4" />
+                        <path d="M12 16h.01" />
+                      </svg>
+                    )
+                  ) : (
+                    <Image 
+                      src={tech.source === "devicon" 
+                        ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
+                        : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
+                      }
+                      alt={tech.name}
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                      unoptimized
+                    />
+                  )}
+                </div>
+                <div>
+                  <p className="font-bold text-white group-hover:text-primary transition-colors">{tech.name}</p>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{tech.category}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -170,8 +201,15 @@ export default function Home() {
             <p className="text-xl text-muted-foreground leading-relaxed mb-8">
               I reject boring design. I blend clean code with unforgettable visual interactions.
             </p>
-            <div className="w-full h-[400px] relative rounded-none overflow-hidden filter grayscale hover:grayscale-0 transition-all duration-700">
-               <Image src="/placeholder.png" alt="Profile" fill className="object-cover" />
+            <div className="w-full relative rounded-none overflow-hidden filter grayscale hover:grayscale-0 transition-all duration-700 border border-white/10 shadow-2xl">
+               <Image 
+                 src="/profile.jpg" 
+                 alt="Profile" 
+                 width={800}
+                 height={1200}
+                 className="w-full h-auto" 
+                 priority
+               />
             </div>
           </motion.div>
 
@@ -190,7 +228,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="group border-b border-white/10 py-10 hover:pl-6 transition-all duration-300"
               >
-                <p className="text-sm text-primary mb-2 font-mono">{skill.num} // Expertise</p>
+                <p className="text-sm text-primary mb-2 font-mono">{skill.num + " // Expertise"}</p>
                 <h3 className="text-3xl font-bold mb-4">{skill.title}</h3>
                 <p className="text-muted-foreground">{skill.desc}</p>
               </motion.div>
@@ -200,7 +238,7 @@ export default function Home() {
       </section>
 
       {/* --- 3. EXPERIENCE (Typography Timeline) --- */}
-      <section id="experience" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10 bg-white/[0.02] border-y border-white/10">
+      <section id="experience" className="py-32 px-6 md:px-12 max-w-7xl mx-auto w-full z-10 scroll-mt-10 bg-white/2 border-y border-white/10">
         <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-20 text-center">Journey.</h2>
 
         <div className="flex flex-col border-t border-white/10">
@@ -210,7 +248,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-6 py-12 border-b border-white/10 group hover:bg-white/[0.03] transition-colors px-6"
+              className="grid grid-cols-1 md:grid-cols-12 gap-6 py-12 border-b border-white/10 group hover:bg-white/3 transition-colors px-6"
             >
               <div className="md:col-span-3 text-2xl md:text-4xl font-light text-muted-foreground group-hover:text-primary transition-colors flex flex-col justify-center">
                 {item.year.split(" - ")[0]} 
@@ -252,13 +290,19 @@ export default function Home() {
                 
                 {/* Desktop Background (Red Scribble) */}
                 <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700">
-                  <Image src={project.image} alt={`${project.title} Desktop`} fill className="object-cover object-left-top" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
+                  <Image 
+                    src={project.image} 
+                    alt={`${project.title} Desktop`} 
+                    fill 
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover object-top-left" 
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/60 to-black/20" />
                 </div>
 
                 {/* Isometric Tilted Smartphone Mockup inside the Card (White Circle) */}
                 <div 
-                  className="absolute -right-4 md:-right-10 top-20 md:top-24 w-[240px] md:w-[320px] h-[500px] md:h-[650px] rounded-[2.5rem] border-[8px] border-neutral-800 bg-black overflow-hidden shadow-[-20px_30px_60px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out origin-bottom group-hover:[transform:rotateX(15deg)_rotateY(-15deg)_rotateZ(5deg)_translateY(-20px)]"
+                  className="absolute -right-4 md:-right-10 top-20 md:top-24 w-[240px] md:w-[320px] h-[500px] md:h-[650px] rounded-[2.5rem] border-8 border-neutral-800 bg-black overflow-hidden shadow-[-20px_30px_60px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out origin-bottom group-hover:transform-[rotateX(15deg)_rotateY(-15deg)_rotateZ(5deg)_translateY(-20px)]"
                   style={{ transform: "rotateX(25deg) rotateY(-25deg) rotateZ(10deg)" }}
                 >
                   {/* Dynamic Island / iPhone Notch simulation */}
@@ -269,9 +313,10 @@ export default function Home() {
                     src={project.imageMobile ? project.imageMobile.replace(" (1)", "") : project.image} 
                     alt={project.title} 
                     fill 
+                    sizes="(max-width: 768px) 100vw, 30vw"
                     className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent pointer-events-none" />
                 </div>
                 
                 {/* Text Content Overlay */}
@@ -307,7 +352,7 @@ export default function Home() {
           <div>
             <p className="text-black/60 font-bold uppercase tracking-widest mb-4">Got an idea?</p>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
-              Let's build <br/> something <br/> great.
+              Let&apos;s build <br/> something <br/> great.
             </h2>
           </div>
           <div className="space-y-8">
@@ -315,6 +360,7 @@ export default function Home() {
               <p className="text-black/60 font-bold uppercase tracking-widest text-sm">Reach Out</p>
               <a href="mailto:cornwerso5118@gmail.com" className="text-xl md:text-3xl font-bold block hover:underline underline-offset-8 decoration-4 break-all">cornwerso5118@gmail.com</a>
               <a href="https://wa.me/6285283142289" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4">WhatsApp Me</a>
+              <Link href="/contact" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4 text-black/80">Send Message</Link>
             </div>
             
             <div className="space-y-4 pt-4 border-t border-black/20">
@@ -331,10 +377,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <div className="mt-20 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground uppercase tracking-widest font-mono border-t border-white/10 pt-8">
-          <p>© {new Date().getFullYear()} M Fauzan Haikal Mugni Portfolio</p>
-          <p>Bekasi, ID</p>
-        </div>
       </section>
 
     </div>

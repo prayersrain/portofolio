@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { BackToTop } from "@/components/back-to-top";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,9 +36,8 @@ export default function RootLayout({
         <main className="flex-1 pt-24"> 
           {children}
         </main>
-        {/* 4. Pasang Footer di sini */}
         <Footer />
-        
+        <BackToTop />
       </body>
     </html>
   );

@@ -5,26 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 
 // Real Data
-const journeyData = [
-  {
-    year: "2022 - Present",
-    title: "Full Stack Developer",
-    company: "Karya Mandiri Dental",
-    description: "Responsible for designing, developing, and maintaining comprehensive digital solutions and web applications for Karya Mandiri Dental.",
-  },
-  {
-    year: "Current",
-    title: "Undergraduate Student (Semester 8)",
-    company: "Universitas Gunadarma",
-    description: "Pursuing a Bachelor's degree in Informatics Engineering (Teknik Industri). Focusing on software engineering and modern web technologies.",
-  },
-  {
-    year: "Previous",
-    title: "Vocational High School Student",
-    company: "SMKN 1 Kota Bekasi",
-    description: "Graduated with foundational knowledge in technology and engineering, preparing for a career in software development.",
-  }
-];
+import { journeyData } from "@/data/journey";
 
 export default function AboutPage() {
   return (
@@ -52,9 +33,10 @@ export default function AboutPage() {
           className="relative w-full aspect-square rounded-3xl overflow-hidden border border-white/10 bg-white/5"
         >
           <Image 
-            src="/placeholder.png" 
+            src="/profile.png" 
             alt="M Fauzan Haikal Mugni" 
             fill 
+            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover grayscale hover:grayscale-0 transition-all duration-500" 
           />
           <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.8)] pointer-events-none" />
@@ -117,7 +99,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6, delay: index * 0.15 }}
             className="mb-16 ml-10 relative group"
           >
-            <div className="absolute -left-[49px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-muted-foreground group-hover:bg-primary transition-colors duration-300 ring-2 ring-transparent group-hover:ring-primary/30" />
+            <div className="absolute left-[-49px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-muted-foreground group-hover:bg-primary transition-colors duration-300 ring-2 ring-transparent group-hover:ring-primary/30" />
             
             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300">
               <Badge variant="outline" className="mb-4 text-primary border-primary/30 bg-primary/5">
