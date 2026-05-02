@@ -90,8 +90,8 @@ export default function Home() {
                 Porto
               </Badge>
               <h1 className="text-6xl md:text-[8rem] font-extrabold tracking-tighter leading-[0.9] uppercase">
-                Digital <br/>
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-500 italic">Architect.</span>
+                Creative <br/>
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-purple-500 italic">Developer.</span>
               </h1>
             </motion.div>
 
@@ -359,8 +359,9 @@ export default function Home() {
             <div className="space-y-4">
               <p className="text-black/60 font-bold uppercase tracking-widest text-sm">Reach Out</p>
               <a href="mailto:cornwerso5118@gmail.com" className="text-xl md:text-3xl font-bold block hover:underline underline-offset-8 decoration-4 break-all">cornwerso5118@gmail.com</a>
-              <a href="https://wa.me/6285283142289" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4">WhatsApp Me</a>
-              <Link href="/contact" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4 text-black/80">Send Message</Link>
+              <Link href="/contact" className="text-2xl md:text-4xl font-bold block hover:underline underline-offset-8 decoration-4 text-black/80 relative z-50">
+                Send Message
+              </Link>
             </div>
             
             <div className="space-y-4 pt-4 border-t border-black/20">
