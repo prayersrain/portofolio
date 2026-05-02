@@ -44,10 +44,10 @@ export default function CVPage() {
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-5xl mx-auto bg-white print:shadow-none shadow-[0_0_80px_rgba(0,0,0,0.03)] border border-slate-100 print:border-none overflow-hidden rounded-[2rem] print:rounded-none"
+        className="cv-container max-w-5xl mx-auto bg-white print:shadow-none shadow-[0_0_80px_rgba(0,0,0,0.03)] border border-slate-100 print:border-none overflow-hidden rounded-[2rem] print:rounded-none"
       >
         {/* TOP HEADER SECTION */}
-        <div className="bg-slate-900 text-white p-12 md:p-16 flex flex-col md:flex-row items-center gap-10">
+        <div className="cv-header bg-slate-900 text-white p-12 md:p-16 flex flex-col md:flex-row items-center gap-10">
            <div className="relative w-32 h-32 md:w-44 md:h-44 rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl shrink-0 rotate-1">
               <Image src="/profile.jpg" alt="M Fauzan Haikal Mugni" fill className="object-cover" />
            </div>
@@ -66,9 +66,9 @@ export default function CVPage() {
            </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
+        <div className="cv-grid-wrapper grid grid-cols-1 md:grid-cols-12 gap-0">
           {/* LEFT SIDE: MAIN CONTENT (70%) */}
-          <div className="md:col-span-8 p-12 md:p-16 border-r border-slate-50">
+          <div className="cv-main-content md:col-span-8 p-12 md:p-16 border-r border-slate-50">
             
             {/* ABOUT ME */}
             <section className="mb-16">
@@ -128,7 +128,7 @@ export default function CVPage() {
           </div>
 
           {/* RIGHT SIDE: SIDEBAR (30%) */}
-          <div className="md:col-span-4 bg-[#F8F9FA] p-12 md:p-16 space-y-16">
+          <div className="cv-sidebar md:col-span-4 bg-[#F8F9FA] p-12 md:p-16 space-y-16">
             
             {/* EDUCATION */}
             <section>
@@ -209,18 +209,103 @@ export default function CVPage() {
         ESTABLISHED 2026 // DIGITAL MANIFESTO
       </footer>
 
+      {/* PRINT STYLES */}
       <style jsx global>{`
         @media print {
-          body { background: white !important; color: #0f172a !important; padding: 0 !important; }
-          @page { margin: 0; size: A4; }
-          .print\:hidden { display: none !important; }
-          * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-          h1, h2, h3, h4, p, span, div { color: #0f172a !important; }
-          .bg-slate-900 { background-color: #0f172a !important; color: white !important; }
-          .text-white { color: white !important; }
-          .text-slate-400 { color: #94a3b8 !important; }
-          .bg-white\/5 { background-color: rgba(255,255,255,0.05) !important; }
-          .rotate-1 { transform: none !important; }
+          header, footer, nav, aside, .print\:hidden, button {
+            display: none !important;
+          }
+          
+          body { 
+            background: #f1f5f9 !important; /* The paper background */
+            margin: 0 !important;
+            padding: 0.6cm !important; /* The "floating" gap */
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+
+          .cv-container {
+            display: block !important;
+            width: 19.8cm !important; /* Leave space for margins */
+            height: 28.5cm !important; /* Fit within A4 height */
+            margin: 0 auto !important;
+            background: white !important;
+            border-radius: 2rem !important;
+            overflow: hidden !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            border: 1px solid #e2e8f0 !important;
+          }
+
+          .cv-header {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 0.8cm 1.2cm !important;
+            background-color: #0f172a !important;
+            color: white !important;
+            gap: 1.5rem !important;
+          }
+
+          .cv-header h1 { font-size: 24pt !important; margin: 0 !important; line-height: 1.1 !important; color: white !important; }
+          .cv-header .w-44 { width: 2.8cm !important; height: 2.8cm !important; border-width: 2px !important; border-color: rgba(255,255,255,0.1) !important; }
+          .cv-header .text-xs { font-size: 7.5pt !important; color: #94a3b8 !important; }
+          
+          /* Force QR visibility and size */
+          .cv-header .hidden.lg\:block {
+            display: block !important;
+            opacity: 1 !important;
+          }
+          .cv-header .w-20 { width: 2cm !important; height: 2cm !important; }
+
+          .cv-grid-wrapper {
+            display: flex !important;
+            flex-direction: row !important;
+            width: 100% !important;
+            height: calc(28.5cm - 4.4cm) !important;
+          }
+
+          .cv-main-content {
+            flex: 7 !important;
+            padding: 0.6cm 1cm !important;
+            background: white !important;
+          }
+
+          .cv-sidebar {
+            flex: 3 !important;
+            padding: 0.6cm 0.8cm !important;
+            background-color: #f8f9fa !important;
+            font-size: 8pt !important;
+            -webkit-print-color-adjust: exact !important;
+          }
+
+          h2 { font-size: 9.5pt !important; margin-bottom: 0.4rem !important; color: #0f172a !important; font-weight: 900 !important; }
+          p, li { line-height: 1.25 !important; margin-bottom: 0.2rem !important; font-size: 9pt !important; color: #475569 !important; }
+          
+          section {
+            margin-bottom: 0.8rem !important;
+          }
+
+          /* Compact Project Cards */
+          .cv-main-content .bg-\[\#FAFAFA\] {
+            padding: 0.5rem 0.8rem !important;
+            margin-bottom: 0.4rem !important;
+            border-radius: 1rem !important;
+            border: 1px solid #f1f5f9 !important;
+          }
+
+          .space-y-12 > * + * { margin-top: 0.4rem !important; }
+          .space-y-16 > * + * { margin-top: 0.8rem !important; }
+
+          @page {
+            margin: 0;
+            size: A4;
+          }
+
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
         }
       `}</style>
     </div>

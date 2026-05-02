@@ -29,15 +29,18 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} dark h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         
-        {/* 2. Pasang Navbar di sini */}
-        <Navbar />
+        <div className="print:hidden">
+          <Navbar />
+        </div>
         
-        {/* 3. Bungkus children dengan tag main */}
-        <main className="flex-1 pt-24"> 
+        <main className="flex-1 pt-24 print:pt-0"> 
           {children}
         </main>
-        <Footer />
-        <BackToTop />
+        
+        <div className="print:hidden">
+          <Footer />
+          <BackToTop />
+        </div>
       </body>
     </html>
   );
