@@ -6,14 +6,7 @@ import { Mail, MapPin, Globe, ExternalLink, Download, Printer, Code, Briefcase, 
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
 import { journeyData } from "@/data/journey";
-
-// Custom Github Icon
-const GithubIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
+import GithubIcon from "@/components/GithubIcon";
 
 export default function CVPage() {
   const handlePrint = () => {
@@ -21,7 +14,7 @@ export default function CVPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white p-8 md:p-16 print:p-0">
+    <div className="cv-root min-h-screen bg-neutral-950 text-white p-8 md:p-16 print:p-0">
       {/* ACTION BAR */}
       <div className="max-w-5xl mx-auto mb-10 flex justify-between items-center print:hidden">
         <Button 
@@ -49,7 +42,7 @@ export default function CVPage() {
         {/* TOP HEADER SECTION */}
         <div className="cv-header bg-black text-white p-12 md:p-16 flex flex-col md:flex-row items-center gap-10">
            <div className="relative w-32 h-32 md:w-44 md:h-44 rounded-none overflow-hidden border-4 border-primary/20 shrink-0">
-              <Image src="/profile.jpg" alt="M Fauzan Haikal Mugni" fill className="object-cover grayscale" />
+              <Image src="/profile.jpg" alt="M Fauzan Haikal Mugni" fill className="object-cover" />
            </div>
            <div className="flex-1 text-center md:text-left space-y-2">
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">
@@ -63,7 +56,7 @@ export default function CVPage() {
            </div>
            <div className="hidden lg:block">
               <div className="p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
-                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://portofolio-prayersrain.vercel.app/`} className="w-20 h-20 invert opacity-80" alt="QR" />
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://prayersrain.cloud`} className="w-20 h-20 invert opacity-80" alt="QR" />
               </div>
            </div>
         </div>
@@ -159,7 +152,7 @@ export default function CVPage() {
                 <div>
                   <p className="text-[10px] font-bold text-slate-900 uppercase mb-3 border-l-2 border-primary/40 pl-2">Languages & Frameworks</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {["Next.js", "React", "TypeScript", "Node.js", "Python", "PHP", "Laravel"].map(s => (
+                    {["Next.js", "React", "TypeScript", "Node.js", "PHP", "Express"].map(s => (
                       <span key={s} className="px-2 py-1 bg-slate-900 text-white text-[9px] font-bold uppercase tracking-wider">{s}</span>
                     ))}
                   </div>
@@ -194,11 +187,14 @@ export default function CVPage() {
             <section>
               <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-6 text-slate-400">Find Me Online</h2>
               <div className="space-y-4">
-                 <a href="https://github.com/prayersrain" className="flex items-center gap-3 text-xs font-medium text-slate-600 hover:text-primary transition-colors">
+                 <a href="https://github.com/prayersrain" target="_blank" className="flex items-center gap-3 text-xs font-medium text-slate-600 hover:text-primary transition-colors">
                     <GithubIcon className="w-4 h-4 text-slate-900" /> github.com/prayersrain
                  </a>
-                 <a href="#" className="flex items-center gap-3 text-xs font-medium text-slate-600 hover:text-primary transition-colors">
-                    <Globe className="w-4 h-4 text-slate-900" /> prayersrain.vercel.app
+                 <a href="https://prayersrain.cloud" target="_blank" className="flex items-center gap-3 text-xs font-medium text-slate-600 hover:text-primary transition-colors">
+                    <Globe className="w-4 h-4 text-slate-900" /> prayersrain.cloud
+                 </a>
+                 <a href="https://discord.gg/hnqUfxuCdk" target="_blank" className="flex items-center gap-3 text-xs font-medium text-slate-600 hover:text-primary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-slate-900"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg> discord.gg/hnqUfxuCdk
                  </a>
               </div>
             </section>
@@ -211,97 +207,139 @@ export default function CVPage() {
         ESTABLISHED 2026 // DIGITAL MANIFESTO
       </footer>
 
+      {/* === SINGLE-COLUMN PRINT CV (hidden on screen, shows on print) === */}
+      <div className="cv-print-only hidden print:block bg-white text-black font-sans">
+        <div style={{ maxWidth: '190mm', margin: '0 auto', padding: '8mm 12mm' }}>
+
+          {/* HEADER with photo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5mm', marginBottom: '4mm', borderBottom: '2px solid #0f172a', paddingBottom: '3mm' }}>
+            <img src="/profile.jpg" alt="" style={{ width: '25mm', height: '25mm', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+            <div>
+              <h1 style={{ fontSize: '20pt', fontWeight: 900, margin: 0, color: '#0f172a', textTransform: 'uppercase' }}>
+                M. Fauzan Haikal Mugni
+              </h1>
+              <p style={{ fontSize: '10.5pt', color: '#475569', margin: '2mm 0 0 0' }}>
+                Full-Stack Developer & Software Engineer
+              </p>
+              <p style={{ fontSize: '9pt', color: '#64748b', margin: '1mm 0 0 0' }}>
+                Bekasi, Indonesia &nbsp;|&nbsp; cornwerso5118@gmail.com &nbsp;|&nbsp; github.com/prayersrain &nbsp;|&nbsp; prayersrain.cloud
+              </p>
+            </div>
+          </div>
+
+          {/* SUMMARY */}
+          <div style={{ marginBottom: '4mm' }}>
+            <h2 style={{ fontSize: '10.5pt', fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0', paddingBottom: '1mm', marginBottom: '2mm' }}>
+              Professional Summary
+            </h2>
+            <p style={{ fontSize: '9pt', lineHeight: 1.35, color: '#334155', margin: 0 }}>
+              Software engineer with 4+ years building production web applications, WhatsApp bots, and self-hosted infrastructure. Currently managing 3 live systems: a dental equipment e-commerce platform, a 100+ daily order bakery WhatsApp bot with AI NLU, and a Discord community server. Proficient across the full stack — TypeScript, Node.js, PHP, Next.js, PostgreSQL, Docker — with a focus on pragmatic, maintainable code and self-hosted infrastructure.
+            </p>
+          </div>
+
+          {/* TECHNICAL SKILLS */}
+          <div style={{ marginBottom: '4mm' }}>
+            <h2 style={{ fontSize: '10.5pt', fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0', paddingBottom: '1mm', marginBottom: '2mm' }}>
+              Technical Skills
+            </h2>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2mm 8mm', fontSize: '9pt', color: '#334155', lineHeight: 1.4 }}>
+              <span><strong>Languages:</strong> TypeScript, JavaScript, PHP, Node.js</span>
+              <span><strong>Frontend:</strong> Next.js, React, Tailwind CSS, PWA</span>
+              <span><strong>Backend:</strong> Express, CodeIgniter, Prisma ORM, REST APIs</span>
+              <span><strong>Databases:</strong> PostgreSQL, Supabase, Redis</span>
+              <span><strong>Infra:</strong> Docker, Docker Compose, Nginx, PM2, SSL</span>
+              <span><strong>AI/ML:</strong> Gemini API, NLU pipelines, prompt engineering</span>
+              <span><strong>APIs:</strong> WhatsApp (Baileys), Lalamove, Evolution, Discord</span>
+              <span><strong>Tools:</strong> Git, Linux, VPS management, Bash scripting</span>
+            </div>
+          </div>
+
+          {/* EXPERIENCE — tight */}
+          <div style={{ marginBottom: '2mm' }}>
+            <h2 style={{ fontSize: "10.5pt", fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5mm', marginBottom: "3mm" }}>
+              Work Experience
+            </h2>
+            {[
+              { year: '2022–Present', title: 'Full-Stack Developer', company: 'Karya Mandiri Dental', desc: 'Architected complete digital ecosystem: Next.js e-commerce, admin dashboard (Prisma + PostgreSQL), WhatsApp bot via Gemini AI. Docker infra (8 containers), Nginx, Redis. Service booking system, warranty management, blog CMS.' },
+              { year: '2023–Present', title: 'Bot Developer', company: 'Yoyo Bakery', desc: 'WhatsApp auto-order bot handling 100+ daily transactions. NLU pipeline with Gemini AI for Indonesian order parsing. Lalamove delivery dispatch via HMAC webhook. PWA dashboard on Vercel with Supabase.' },
+              { year: '2024', title: 'Community Developer', company: 'Independent (Discord)', desc: 'Custom Discord bot (discord.js v14) for automation and moderation. 24/7 via PM2. discord.gg/hnqUfxuCdk' },
+            ].map((item, i) => (
+              <div key={i} style={{ marginBottom: "3mm" }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <h3 style={{ fontSize: "9.5pt", fontWeight: 700, color: '#0f172a', margin: 0 }}>{item.title} — <span style={{ fontWeight: 400, color: '#64748b' }}>{item.company}</span></h3>
+                  <span style={{ fontSize: "8pt", color: "#94a3b8", whiteSpace: "nowrap", marginLeft: "3mm" }}>{item.year}</span>
+                </div>
+                <p style={{ fontSize: "9pt", lineHeight: 1.3, color: '#334155', margin: '0.3mm 0 0 0' }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* EDUCATION — 1 line */}
+          <div style={{ marginBottom: "4mm" }}>
+            <h2 style={{ fontSize: "10.5pt", fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5mm', marginBottom: "3mm" }}>
+              Education
+            </h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: "9pt" }}>
+              <span><strong style={{ color: '#0f172a' }}>Universitas Gunadarma</strong> — Informatics Engineering, Semester 8</span>
+              <span style={{ color: '#94a3b8', whiteSpace: 'nowrap', marginLeft: '2mm' }}>2021–Present</span>
+            </div>
+          </div>
+
+          {/* KEY PROJECTS — compact */}
+          <div>
+            <h2 style={{ fontSize: "10.5pt", fontWeight: 900, color: '#0f172a', textTransform: 'uppercase', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.5mm', marginBottom: "3mm" }}>
+              Key Projects
+            </h2>
+            {[
+              { name: 'KMD System', url: 'karyamandiridental.cloud', stack: 'Next.js 14, PostgreSQL, Prisma, Docker, Gemini AI, Evolution API', desc: 'E-commerce + AI WhatsApp bot for dental equipment. 8 Docker containers, ISR, SEO.' },
+              { name: 'Yoyo Bakery Bot', url: 'yoyobolen.cloud', stack: 'Node.js, Baileys, Gemini AI, Supabase, Lalamove API', desc: 'WhatsApp order bot 100+ orders/day, NLU parser, PWA dashboard.' },
+              { name: 'Discord Community Hub', url: 'discord.gg/hnqUfxuCdk', stack: 'Node.js, discord.js v14, PM2', desc: 'Custom automation & moderation bot, 24/7 VPS deployment.' },
+            ].map((p, i) => (
+              <div key={i} style={{ display: 'flex', gap: '2mm', marginBottom: "2mm", fontSize: "8.5pt" }}>
+                <div style={{ minWidth: '28mm' }}>
+                  <p style={{ fontWeight: 700, color: '#0f172a', margin: 0 }}>{p.name}</p>
+                  <p style={{ color: '#94a3b8', margin: 0, fontSize: '6.5pt' }}>{p.url}</p>
+                </div>
+                <div>
+                  <p style={{ color: '#64748b', margin: 0, fontSize: "8pt" }}>{p.stack}</p>
+                  <p style={{ color: '#334155', margin: '0.2mm 0 0 0', lineHeight: 1.25 }}>{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* PRINT STYLES */}
       <style jsx global>{`
         @media print {
-          header, footer, nav, aside, .print\:hidden, button {
+          @page { size: A4; margin: 0; }
+
+          html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: white !important;
+          }
+
+          /* Hide all web UI — only show the dedicated print CV */
+          .cv-root > *:not(.cv-print-only) {
             display: none !important;
           }
-          
-          body { 
-            background: #f1f5f9 !important; /* The paper background */
+
+          .cv-root {
+            padding: 0 !important;
             margin: 0 !important;
-            padding: 0.6cm !important; /* The "floating" gap */
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-
-          .cv-container {
-            display: block !important;
-            width: 19.8cm !important; /* Leave space for margins */
-            height: 28.5cm !important; /* Fit within A4 height */
-            margin: 0 auto !important;
             background: white !important;
-            border-radius: 2rem !important;
-            overflow: hidden !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-            border: 1px solid #e2e8f0 !important;
+            min-height: auto !important;
           }
 
-          .cv-header {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            padding: 0.8cm 1.2cm !important;
-            background-color: #0f172a !important;
-            color: white !important;
-            gap: 1.5rem !important;
-          }
-
-          .cv-header h1 { font-size: 20pt !important; margin: 0 !important; line-height: 1.1 !important; color: white !important; font-weight: 700 !important; }
-          .cv-header .w-44 { width: 2.8cm !important; height: 2.8cm !important; border-width: 2px !important; border-color: rgba(255,255,255,0.1) !important; border-radius: 0 !important; }
-          .cv-header .text-xs { font-size: 7.5pt !important; color: #94a3b8 !important; }
-          
-          /* Force QR visibility and size */
-          .cv-header .hidden.lg\:block {
+          .cv-root .hidden.print\\:block {
             display: block !important;
-            opacity: 1 !important;
-          }
-          .cv-header .w-20 { width: 2cm !important; height: 2cm !important; }
-
-          .cv-grid-wrapper {
-            display: flex !important;
-            flex-direction: row !important;
-            width: 100% !important;
-            height: calc(28.5cm - 4.4cm) !important;
           }
 
-          .cv-main-content {
-            flex: 7 !important;
-            padding: 0.6cm 1cm !important;
-            background: white !important;
-          }
-
-          .cv-sidebar {
-            flex: 3 !important;
-            padding: 0.6cm 0.8cm !important;
-            background-color: #f8f9fa !important;
-            font-size: 8pt !important;
-            -webkit-print-color-adjust: exact !important;
-          }
-
-          h2 { font-size: 9.5pt !important; margin-bottom: 0.4rem !important; color: #0f172a !important; font-weight: 900 !important; }
-          p, li { line-height: 1.25 !important; margin-bottom: 0.2rem !important; font-size: 9pt !important; color: #475569 !important; }
-          
-          section {
-            margin-bottom: 0.8rem !important;
-          }
-
-          /* Compact Project Cards */
-          .cv-main-content .bg-\[\#FAFAFA\] {
-            padding: 0.5rem 0.8rem !important;
-            margin-bottom: 0.4rem !important;
-            border-radius: 1rem !important;
-            border: 1px solid #f1f5f9 !important;
-          }
-
-          .space-y-12 > * + * { margin-top: 0.4rem !important; }
-          .space-y-16 > * + * { margin-top: 0.8rem !important; }
-
-          @page {
-            margin: 0;
-            size: A4;
+          .cv-print-only {
+            display: block !important;
+            font-family: 'Inter', Arial, Helvetica, sans-serif !important;
           }
 
           * {

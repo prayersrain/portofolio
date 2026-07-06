@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Wallet, FileText, Quote } from "lucide-react";
+import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Eye, Quote } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
@@ -22,24 +22,25 @@ if (typeof window !== "undefined") {
 }
 
 const techStack = [
-  { name: "Next.js", category: "Core", slug: "nextjs", source: "devicon" },
   { name: "TypeScript", category: "Core", slug: "typescript", source: "devicon" },
-  { name: "Python", category: "Core", slug: "python", source: "devicon" },
-  { name: "PHP", category: "Core", slug: "php", source: "devicon" },
   { name: "Node.js", category: "Core", slug: "nodejs", source: "devicon" },
-  { name: "HTML5", category: "Frontend", slug: "html5", source: "devicon" },
-  { name: "CSS3", category: "Frontend", slug: "css3", source: "devicon" },
+  { name: "PHP", category: "Core", slug: "php", source: "devicon" },
+  { name: "Next.js", category: "Frontend", slug: "nextjs", source: "devicon" },
   { name: "React", category: "Frontend", slug: "react", source: "devicon" },
   { name: "Tailwind CSS", category: "Frontend", slug: "tailwindcss", source: "simpleicons", color: "06B6D4" },
   { name: "Framer Motion", category: "Frontend", slug: "framer", source: "simpleicons", color: "0055FF" },
-  { name: "Laravel", category: "Backend", slug: "laravel", source: "devicon" },
+  { name: "Express", category: "Backend", slug: "express", source: "simpleicons", color: "000000" },
+  { name: "CodeIgniter", category: "Backend", slug: "codeigniter", source: "simpleicons", color: "EF4223" },
   { name: "PostgreSQL", category: "Backend", slug: "postgresql", source: "devicon" },
   { name: "Prisma", category: "Backend", slug: "prisma", source: "devicon" },
-  { name: "Bcrypt", category: "Backend", slug: "auth0", source: "simpleicons", color: "EB5424" },
+  { name: "Supabase", category: "Backend", slug: "supabase", source: "devicon" },
+  { name: "Docker", category: "Infra", slug: "docker", source: "devicon" },
+  { name: "PM2", category: "Infra", slug: "pm2", source: "custom" },
+  { name: "Nginx", category: "Infra", slug: "nginx", source: "devicon" },
+  { name: "Gemini AI", category: "Expertise", slug: "googlegemini", source: "simpleicons", color: "8E75B2" },
+  { name: "Baileys API", category: "Expertise", slug: "whatsapp", source: "simpleicons", color: "25D366" },
   { name: "PWA", category: "Expertise", slug: "pwa", source: "simpleicons", color: "5A0FC8" },
-  { name: "NextAuth", category: "Expertise", slug: "nextauth", source: "custom" },
-  { name: "Midtrans API", category: "Expertise", slug: "midtrans", source: "custom" },
-  { name: "JWT", category: "Expertise", slug: "jsonwebtokens", source: "simpleicons", color: "ffffff" },
+  { name: "JWT Auth", category: "Expertise", slug: "jsonwebtokens", source: "simpleicons", color: "ffffff" },
   { name: "Git", category: "Tools", slug: "git", source: "devicon" }
 ];
 
@@ -101,17 +102,6 @@ export default function Home() {
       }
     });
 
-    // Fade in effect for tech stack items
-    gsap.from(".tech-card", {
-      opacity: 0,
-      y: 30,
-      stagger: 0.05,
-      scrollTrigger: {
-        trigger: ".tech-grid",
-        start: "top 80%",
-      }
-    });
-
     // Hero Text Reveal
     const heroTl = gsap.timeline();
     heroTl.from(".hero-line span", {
@@ -163,7 +153,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                Porto
+                Available for Work
               </Badge>
             </div>
 
@@ -192,8 +182,8 @@ export default function Home() {
               
               <Link href="/cv">
                 <Button size="lg" variant="outline" className="rounded-none px-8 h-16 text-lg border-white/20 hover:bg-white/5 gap-3">
-                  <FileText className="w-6 h-6 text-primary" />
-                  Download CV
+                  <Eye className="w-6 h-6 text-primary" />
+                  View CV
                 </Button>
               </Link>
             </div>
@@ -222,69 +212,74 @@ export default function Home() {
             <p className="text-muted-foreground max-w-sm">A curated list of technologies and tools I leverage to build high-performance digital products.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 tech-grid">
-            {[
-              { 
-                title: "Core & Languages", 
-                items: techStack.filter(t => t.category === "Core") 
-              },
-              { 
-                title: "Frontend & Design", 
-                items: techStack.filter(t => t.category === "Frontend") 
-              },
-              { 
-                title: "Backend & Data", 
-                items: techStack.filter(t => t.category === "Backend") 
-              },
-              { 
-                title: "Integrations & Tools", 
-                items: techStack.filter(t => ["Expertise", "Tools"].includes(t.category)) 
-              }
-            ].map((group, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-3xl border border-white/5 bg-white/5 hover:border-primary/30 transition-colors group tech-card"
-              >
-                <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-8 group-hover:text-primary transition-colors">{group.title}</h3>
-                <div className="grid grid-cols-3 gap-6">
-                  {group.items.map((tech, j) => (
-                    <div key={j} className="flex flex-col items-center gap-3 group/item">
-                      <div className="w-12 h-12 flex items-center justify-center p-2 bg-black/30 rounded-xl border border-white/5 group-hover/item:border-primary/50 transition-all duration-300">
-                        {tech.source === "custom" ? (
-                          tech.slug === "midtrans" ? (
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full filter grayscale group-hover/item:grayscale-0 transition-all duration-300">
-                              <circle cx="12" cy="12" r="10" fill="#002B5B" />
-                              <rect x="7" y="9" width="2" height="6" rx="1" fill="#81A1C1" />
-                              <rect x="11" y="6" width="2" height="12" rx="1" fill="#5E81AC" />
-                              <rect x="15" y="9" width="2" height="6" rx="1" fill="#88C0D0" />
-                            </svg>
-                          ) : (
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white filter grayscale group-hover/item:grayscale-0 group-hover/item:text-primary transition-all duration-300">
-                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                              <path d="M12 8v4" />
-                              <path d="M12 16h.01" />
-                            </svg>
-                          )
-                        ) : (
-                          <Image 
-                            src={tech.source === "devicon" 
-                              ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
-                              : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
-                            }
-                            alt={tech.name}
-                            width={40}
-                            height={40}
-                            className="w-full h-full object-contain filter grayscale group-hover/item:grayscale-0 transition-all duration-300"
-                            unoptimized
-                          />
-                        )}
-                      </div>
-                      <p className="text-[10px] font-medium text-muted-foreground group-hover/item:text-white transition-colors text-center">{tech.name}</p>
-                    </div>
-                  ))}
+          {/* Infinite Marquee */}
+          <style jsx>{`
+            @keyframes marquee-left {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            @keyframes marquee-right {
+              0% { transform: translateX(-50%); }
+              100% { transform: translateX(0); }
+            }
+            .marquee-track {
+              display: flex;
+              gap: 1.5rem;
+              width: max-content;
+            }
+            .marquee-left { animation: marquee-left 30s linear infinite; }
+            .marquee-right { animation: marquee-right 30s linear infinite; }
+            .marquee-left:hover, .marquee-right:hover { animation-play-state: paused; }
+          `}</style>
+
+          <div className="space-y-6 overflow-hidden">
+            {/* Row 1 — scroll left */}
+            <div className="marquee-left marquee-track">
+              {[...techStack.slice(0, 10), ...techStack.slice(0, 10)].map((tech, i) => (
+                <div key={i} className="flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/5 hover:border-primary/40 hover:bg-white/10 transition-all duration-300 shrink-0">
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    {tech.source === "custom" ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white/60">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M12 8v4" /><path d="M12 16h.01" />
+                      </svg>
+                    ) : (
+                      <img
+                        src={tech.source === "devicon"
+                          ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
+                          : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
+                        }
+                        alt={tech.name} className="w-full h-full object-contain"
+                      />
+                    )}
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">{tech.name}</span>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Row 2 — scroll right */}
+            <div className="marquee-right marquee-track">
+              {[...techStack.slice(10), ...techStack.slice(10)].map((tech, i) => (
+                <div key={i} className="flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/5 hover:border-primary/40 hover:bg-white/10 transition-all duration-300 shrink-0">
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    {tech.source === "custom" ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-white/60">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M12 8v4" /><path d="M12 16h.01" />
+                      </svg>
+                    ) : (
+                      <img
+                        src={tech.source === "devicon"
+                          ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.slug}/${tech.slug}-original.svg`
+                          : `https://cdn.simpleicons.org/${tech.slug}/${tech.color || 'white'}`
+                        }
+                        alt={tech.name} className="w-full h-full object-contain"
+                      />
+                    )}
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">{tech.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -319,10 +314,10 @@ export default function Home() {
                 desc: "Building installable web apps with offline capabilities and native-like feel.",
                 icon: <Smartphone className="w-8 h-8 text-primary" />
               },
-              { 
-                title: "Fintech Integration", 
-                desc: "Seamless payment gateway integration and financial module development.",
-                icon: <Wallet className="w-8 h-8 text-primary" />
+              {
+                title: "AI & Automation",
+                desc: "Building intelligent chatbots with LLMs, NLU pipelines, and workflow automation.",
+                icon: <Cpu className="w-8 h-8 text-primary" />
               }
             ].map((service, i) => (
               <motion.div

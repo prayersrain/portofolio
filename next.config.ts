@@ -11,8 +11,10 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
+  output: "export", // ponytail: static export, no Node server needed
   turbopack: {},
   images: {
+    unoptimized: true, // required for static export
     remotePatterns: [
       {
         protocol: "https",

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5865F2"/><stop offset="100%" style="stop-color:#1E293B"/></linearGradient></defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <text x="960" y="500" font-family="sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">Discord Community Hub</text>
+  <text x="960" y="580" font-family="monospace" font-size="28" fill="rgba(255,255,255,0.6)" text-anchor="middle">discord.gg/hnqUfxuCdk</text>
+  <text x="960" y="640" font-family="monospace" font-size="20" fill="rgba(255,255,255,0.4)" text-anchor="middle">Click to view server info →</text>
+</svg>

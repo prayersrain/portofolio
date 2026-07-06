@@ -14,13 +14,14 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-geist-m
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
 
 export const metadata: Metadata = {
-  title: "Zan | Full-Stack Developer",
-  description: "Creative Developer & UI Designer crafting high-performance digital experiences.",
+  metadataBase: new URL("https://prayersrain.cloud"),
+  title: "Fauzan | Full-Stack Developer",
+  description: "Full-Stack Developer crafting high-performance web apps, WhatsApp bots, and AI-powered systems. Real projects, real impact.",
   openGraph: {
-    title: "Zan | Full-Stack Developer",
-    description: "Creative Developer & UI Designer crafting high-performance digital experiences.",
-    url: "https://fauzan.site",
-    siteName: "Zan Portfolio",
+    title: "Fauzan | Full-Stack Developer",
+    description: "Full-Stack Developer crafting high-performance web apps, WhatsApp bots, and AI-powered systems.",
+    url: "https://prayersrain.cloud",
+    siteName: "Fauzan Portfolio",
     images: [{ url: "/og-image.png" }],
     locale: "en_US",
     type: "website",
@@ -37,9 +38,6 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} ${jetbrains.variable} ${syne.variable} min-h-full flex flex-col font-sans bg-background text-foreground`}>
         <Providers>
           <CustomCursor />
-          {/* GRAINY OVERLAY */}
-          <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[50] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-
           <ScrollProgress />
           <div className="print:hidden">
             <Navbar />

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
+import { Eye } from "lucide-react";
 import Link from "next/link";
 
 // Real Data
@@ -29,8 +29,8 @@ export default function AboutPage() {
         </h1>
         <Link href="/cv">
           <Button className="rounded-none px-8 py-8 h-auto gap-4 text-xl font-black bg-white text-black hover:bg-white/90 uppercase tracking-tighter">
-            <FileText className="w-6 h-6" />
-            Download CV
+            <Eye className="w-6 h-6" />
+            View CV
           </Button>
         </Link>
       </motion.div>
@@ -49,9 +49,9 @@ export default function AboutPage() {
             alt="M Fauzan Haikal Mugni" 
             fill 
             sizes="(max-width: 1024px) 100vw, 33vw"
-            className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" 
+            className="object-cover group-hover:scale-105 transition-all duration-1000"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-20 group-hover:opacity-0 transition-opacity duration-700" />
         </motion.div>
 
         {/* Info Biodata */}
