@@ -9,6 +9,15 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    period: { en: "2025 – Present", id: "2025 – Sekarang" },
+    title: { en: "Founder", id: "Founder" },
+    org: "Hal-Creative",
+    description: {
+      en: "Run my own studio that builds, hosts and supports web systems, WhatsApp bots and SaaS for small businesses, including Karya Mandiri Dental and Yoyo Bolen.",
+      id: "Menjalankan studio sendiri yang membangun, meng-hosting, dan menangani support sistem web, bot WhatsApp, dan SaaS untuk bisnis kecil, termasuk Karya Mandiri Dental dan Yoyo Bolen.",
+    },
+  },
+  {
     period: { en: "2022 – Present", id: "2022 – Sekarang" },
     title: { en: "Full-Stack Developer", id: "Full-Stack Developer" },
     org: "Karya Mandiri Dental",
@@ -29,15 +38,6 @@ export const experience: ExperienceItem[] = [
 ];
 
 export const education: ExperienceItem[] = [
-  {
-    period: { en: "2022 – Present", id: "2022 – Sekarang" },
-    title: { en: "Bachelor of Informatics Engineering", id: "S1 Teknik Informatika" },
-    org: "Universitas Gunadarma",
-    description: {
-      en: "Software engineering, web technologies and system architecture.",
-      id: "Rekayasa perangkat lunak, teknologi web, dan arsitektur sistem.",
-    },
-  },
   {
     period: { en: "2019 – 2022", id: "2019 – 2022" },
     title: { en: "Software Engineering", id: "Rekayasa Perangkat Lunak" },
