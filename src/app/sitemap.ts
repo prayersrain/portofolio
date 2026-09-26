@@ -1,24 +1,18 @@
-import { projectsData } from "@/data/projects";
 import type { MetadataRoute } from "next";
+import { profile } from "@/data/profile";
+import { projects } from "@/data/projects";
+import { localePath, locales } from "@/lib/i18n";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://prayersrain.cloud";
+  const paths = ["/", "/cv", ...projects.map((p) => `/projects/${p.slug}`)];
+  const url = (locale: (typeof locales)[number], path: string) => profile.site + localePath(locale, path);
 
-  const projectPages = projectsData.map((p) => ({
-    url: `${baseUrl}/projects/${p.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
-  return [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/projects`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/cv`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    ...projectPages,
-  ];
+  return paths.flatMap((path) =>
+    locales.map((locale) => ({
+      url: url(locale, path),
+      alternates: { languages: { en: url("en", path), id: url("id", path) } },
+    })),
+  );
 }
