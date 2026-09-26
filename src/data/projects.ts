@@ -216,7 +216,8 @@ export const projects: Project[] = [
     },
     badges: ["concept"],
     stack: ["React", "Vite", "JavaScript", "CSS"],
-    links: { live: "https://saturatedly-unpicturesque-alton.ngrok-free.dev/v2/" },
+    links: { live: "https://prayersrain.cloud/lighthouse/" },
+    preview: "https://prayersrain.cloud/lighthouse/",
     image: "/projects/lighthouse/desktop.webp",
     imageMobile: "/projects/lighthouse/mobile.webp",
     problem: {
