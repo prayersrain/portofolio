@@ -48,8 +48,9 @@ export default function ContactPage() {
           }}
         >
           <div className="space-y-3">
-            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Full Name</label>
+            <label htmlFor="name" className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Full Name</label>
             <input 
+              id="name"
               name="name"
               type="text" 
               required
@@ -59,8 +60,9 @@ export default function ContactPage() {
           </div>
           
           <div className="space-y-3">
-            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Email Address</label>
+            <label htmlFor="email" className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Email Address</label>
             <input 
+              id="email"
               name="email"
               type="email" 
               required
@@ -70,8 +72,9 @@ export default function ContactPage() {
           </div>
 
           <div className="space-y-3">
-            <label className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Message</label>
+            <label htmlFor="message" className="text-xs font-mono text-primary uppercase tracking-[0.3em]">Message</label>
             <textarea 
+              id="message"
               name="message"
               rows={4}
               required

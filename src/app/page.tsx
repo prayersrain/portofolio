@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Cpu, ArrowUpRight, Code2, Database, Smartphone, Eye, Quote } from "lucide-react";
 import Link from "next/link";
@@ -57,7 +57,10 @@ const getProjectLayout = (index: number) => {
 };
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // Motion values update the style directly, so mousemove doesn't re-render the page
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const flashlight = useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(255,255,255,0.04), transparent 40%)`;
   const containerRef = useRef(null);
   const journeyRef = useRef(null);
   
@@ -72,11 +75,12 @@ export default function Home() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   useGSAP(() => {
     // Reveal animation for Journey items
@@ -123,14 +127,12 @@ export default function Home() {
   };
 
   return (
-    <div ref={containerRef} className="flex flex-col min-h-screen overflow-hidden bg-black selection:bg-primary/30 scroll-smooth">
+    <div ref={containerRef} className="flex flex-col min-h-screen overflow-hidden bg-black selection:bg-primary/30">
       
       {/* Flashlight Mouse Tracking Effect */}
       <motion.div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-        animate={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.04), transparent 40%)`
-        }}
+        style={{ background: flashlight }}
       />
 
       {/* --- 1. HERO SECTION (Asymmetrical & Unique) --- */}
@@ -180,12 +182,12 @@ export default function Home() {
                 <ArrowUpRight className="ml-3 w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Button>
               
-              <Link href="/cv">
-                <Button size="lg" variant="outline" className="rounded-none px-8 h-16 text-lg border-white/20 hover:bg-white/5 gap-3">
+              <Button asChild size="lg" variant="outline" className="rounded-none px-8 h-16 text-lg border-white/20 hover:bg-white/5 gap-3">
+                <Link href="/cv">
                   <Eye className="w-6 h-6 text-primary" />
                   View CV
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 
@@ -433,10 +435,12 @@ export default function Home() {
         <div className="flex justify-between items-end mb-24 border-b border-white/10 pb-8 relative z-10">
           <h2 className="text-3xl md:text-[4vw] font-black uppercase leading-tight">
             <ScrambleText text="Selected" /> <br/>
-            <span className="text-primary text-stroke"><ScrambleText text="Works." /></span>
+            <span className="text-transparent text-stroke-primary"><ScrambleText text="Works." /></span>
           </h2>
-          <Button variant="ghost" className="hidden md:flex text-lg group">
-            View Archive <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <Button asChild variant="ghost" className="hidden md:flex text-lg group">
+            <Link href="/projects">
+              View Archive <ArrowUpRight className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </Link>
           </Button>
         </div>
 
@@ -478,9 +482,9 @@ export default function Home() {
                   {/* Dynamic Island / iPhone Notch simulation */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[30%] h-5 bg-neutral-800 rounded-b-xl z-20 shadow-md" />
                   
-                  {/* The actual project screenshot inside the phone (Using mobile image without "(1)") */}
-                  <Image 
-                    src={project.imageMobile ? project.imageMobile.replace(" (1)", "") : project.image} 
+                  {/* The actual project screenshot inside the phone */}
+                  <Image
+                    src={project.imageMobile ?? project.image}
                     alt={project.title} 
                     fill 
                     sizes="(max-width: 768px) 100vw, 30vw"

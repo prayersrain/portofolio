@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 

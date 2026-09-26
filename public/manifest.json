@@ -1,7 +1,7 @@
 {
-  "name": "Zan Portfolio",
-  "short_name": "Zan Portfolio",
-  "description": "Zan's professional portfolio.",
+  "name": "Fauzan Portfolio",
+  "short_name": "Fauzan",
+  "description": "Fauzan's professional portfolio.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

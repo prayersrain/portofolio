@@ -15,8 +15,9 @@ const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://prayersrain.cloud"),
-  title: "Fauzan | Full-Stack Developer",
+  title: { default: "Fauzan | Full-Stack Developer", template: "%s | Fauzan" },
   description: "Full-Stack Developer crafting high-performance web apps, WhatsApp bots, and AI-powered systems. Real projects, real impact.",
+  manifest: "/manifest.json",
   openGraph: {
     title: "Fauzan | Full-Stack Developer",
     description: "Full-Stack Developer crafting high-performance web apps, WhatsApp bots, and AI-powered systems.",

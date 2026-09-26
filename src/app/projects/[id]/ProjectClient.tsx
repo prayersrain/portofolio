@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ExternalLink, ArrowUpRight, MessageCircle, Shield, Code, Users, Zap, Server } from "lucide-react";
-import { projectsData, type Project } from "@/data/projects";
+import { projectsData } from "@/data/projects";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import GithubIcon from "@/components/GithubIcon";
@@ -20,9 +20,9 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <h1 className="text-3xl font-black uppercase">Project Not Found</h1>
-        <Link href="/">
-          <Button variant="outline" className="rounded-none">Back to Home</Button>
-        </Link>
+        <Button asChild variant="outline" className="rounded-none">
+          <Link href="/">Back to Home</Link>
+        </Button>
       </div>
     );
   }
@@ -36,12 +36,12 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: [0.77, 0, 0.175, 1] }}
       >
-        <Link href="/">
-          <Button variant="ghost" className="mb-12 pl-0 hover:bg-transparent hover:text-primary uppercase font-mono text-xs tracking-widest gap-2">
+        <Button asChild variant="ghost" className="mb-12 pl-0 hover:bg-transparent hover:text-primary uppercase font-mono text-xs tracking-widest gap-2">
+          <Link href="/">
             <ArrowLeft className="w-4 h-4" />
             Back to Home
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </motion.div>
 
       {/* Header Proyek */}
@@ -87,8 +87,8 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
                     <MessageCircle className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-black text-white">Discord Community Hub</h2>
-                    <p className="text-white/70 text-sm font-mono">discord.gg/hnqUfxuCdk</p>
+                    <h2 className="text-2xl md:text-3xl font-black text-white">{project.title}</h2>
+                    <p className="text-white/70 text-sm font-mono">{project.discordInviteUrl.replace("https://", "")}</p>
                   </div>
                 </div>
                 <p className="text-white/80 text-lg leading-relaxed max-w-2xl">
@@ -138,17 +138,17 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
               <div className="p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl space-y-6">
                 <div className="space-y-1">
                   <h3 className="text-xs font-bold text-primary uppercase tracking-widest">Join the Community</h3>
-                  <p className="text-sm text-muted-foreground">Click below to join the Discord server — no expiry, everyone's welcome.</p>
+                  <p className="text-sm text-muted-foreground">Click below to join the Discord server — no expiry, everyone&apos;s welcome.</p>
                 </div>
-                <Link href={project.discordInviteUrl} target="_blank" className="block w-full">
-                  <Button className="w-full justify-between group py-6 md:py-7 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                <Button asChild className="w-full justify-between group py-6 md:py-7 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                  <Link href={project.discordInviteUrl} target="_blank">
                     <span className="flex items-center gap-3">
                       <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
                       Join Discord Server
                     </span>
                     <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
 
               {/* Tech Stack side card */}
@@ -256,26 +256,26 @@ export default function ProjectDetail({ params }: { params: Promise<{ id: string
 
               <div className="flex flex-col gap-4">
                 {project.liveUrl && (
-                  <Link href={project.liveUrl} target="_blank" className="w-full">
-                    <Button className="w-full justify-between group py-6 md:py-7 bg-primary text-black hover:bg-primary/90 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                  <Button asChild className="w-full justify-between group py-6 md:py-7 bg-primary text-black hover:bg-primary/90 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                    <Link href={project.liveUrl} target="_blank">
                       <span className="flex items-center gap-3">
                         <ExternalLink className="w-5 h-5 md:w-6 md:h-6" />
                         Live Preview
                       </span>
                       <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 )}
                 {project.githubUrl && (
-                  <Link href={project.githubUrl} target="_blank" className="w-full">
-                    <Button variant="outline" className="w-full justify-between group py-6 md:py-7 border-white/10 hover:bg-white/5 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                  <Button asChild variant="outline" className="w-full justify-between group py-6 md:py-7 border-white/10 hover:bg-white/5 rounded-2xl text-base md:text-lg font-bold transition-all duration-300">
+                    <Link href={project.githubUrl} target="_blank">
                       <span className="flex items-center gap-3">
                         <GithubIcon className="w-5 h-5 md:w-6 md:h-6" />
                         View Source
                       </span>
                       <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 )}
               </div>
             </div>

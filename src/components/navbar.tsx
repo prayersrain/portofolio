@@ -20,7 +20,7 @@ export function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/", label: "Projects" },
+    { href: "/projects", label: "Projects" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -46,23 +46,25 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <div className="hidden sm:flex items-center gap-1">
-            <Link href="https://github.com/prayersrain" target="_blank">
-              <Button variant="ghost" size="icon">
+            <Button asChild variant="ghost" size="icon">
+              <Link href="https://github.com/prayersrain" target="_blank" aria-label="GitHub">
                 <GithubIcon className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Link href="https://discord.gg/hnqUfxuCdk" target="_blank">
-              <Button variant="ghost" size="icon">
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="icon">
+              <Link href="https://discord.gg/hnqUfxuCdk" target="_blank" aria-label="Discord">
                 <DiscordIcon className="w-5 h-5" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           <Button
-            variant="ghost" 
-            size="icon" 
-            className="md:hidden" 
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </Button>
@@ -102,10 +104,10 @@ export function Navbar() {
               transition={{ delay: 0.4 }}
               className="flex gap-6 mt-8"
             >
-              <Link href="https://github.com/prayersrain" target="_blank">
+              <Link href="https://github.com/prayersrain" target="_blank" aria-label="GitHub">
                 <GithubIcon className="w-8 h-8" />
               </Link>
-              <Link href="https://discord.gg/hnqUfxuCdk" target="_blank">
+              <Link href="https://discord.gg/hnqUfxuCdk" target="_blank" aria-label="Discord">
                 <DiscordIcon className="w-8 h-8" />
               </Link>
             </motion.div>

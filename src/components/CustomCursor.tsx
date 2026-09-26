@@ -5,17 +5,14 @@ import { motion, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const [cursorState, setCursorState] = useState<"default" | "project">("default");
-  const [isMobile, setIsMobile] = useState(false);
 
   const mouseX = useSpring(0, { stiffness: 500, damping: 28 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 28 });
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
+    // Touch devices have no hovering pointer, so skip the listeners (the cursor is hidden via CSS too)
+    if (!window.matchMedia("(pointer: fine)").matches) return;
 
-  useEffect(() => {
-    if (isMobile) return;
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -39,11 +36,9 @@ export default function CustomCursor() {
     };
   }, [mouseX, mouseY]);
 
-  if (isMobile) return null;
-
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center rounded-full mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] hidden pointer-fine:flex items-center justify-center rounded-full mix-blend-difference"
       style={{
         x: mouseX,
         y: mouseY,

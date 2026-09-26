@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Globe, ExternalLink, Download, Printer, Code, Briefcase, GraduationCap, Laptop } from "lucide-react";
+import { Mail, MapPin, Globe, ExternalLink, Printer, Code, Briefcase, GraduationCap, Laptop } from "lucide-react";
 import Image from "next/image";
 import { projectsData } from "@/data/projects";
 import { journeyData } from "@/data/journey";

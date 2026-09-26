@@ -27,12 +27,12 @@ export default function AboutPage() {
           <ScrambleText text="About" /> <br/>
           <span className="text-primary italic"><ScrambleText text="Me." /></span>
         </h1>
-        <Link href="/cv">
-          <Button className="rounded-none px-8 py-8 h-auto gap-4 text-xl font-black bg-white text-black hover:bg-white/90 uppercase tracking-tighter">
+        <Button asChild className="rounded-none px-8 py-8 h-auto gap-4 text-xl font-black bg-white text-black hover:bg-white/90 uppercase tracking-tighter">
+          <Link href="/cv">
             <Eye className="w-6 h-6" />
             View CV
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </motion.div>
 
       {/* BIODATA SECTION */}
@@ -67,7 +67,7 @@ export default function AboutPage() {
               <span className="text-primary">Haikal Mugni.</span>
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl font-light">
-              I am a 22-year-old software developer crafting modern web ecosystems. 
+              I am a software developer crafting modern web ecosystems.
               Currently finalizing my Informatics Engineering degree at Universitas Gunadarma, 
               I specialize in bridging complex logic with intuitive aesthetics.
             </p>
