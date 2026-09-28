@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// The frame is rendered this much wider than the box, so the embedded site's own
+// scrollbar sits outside the visible area (a cross-origin page can't be styled directly).
+const SCROLLBAR_GUTTER = 20;
+
 /** Renders a site at its real viewport size and scales it down to fit the frame. */
 function ScaledSite({ url, title, width, height }: { url: string; title: string; width: number; height: number }) {
   const box = useRef<HTMLDivElement>(null);
@@ -22,7 +26,7 @@ function ScaledSite({ url, title, width, height }: { url: string; title: string;
           src={url}
           title={title}
           loading="lazy"
-          width={width}
+          width={width + SCROLLBAR_GUTTER}
           height={height}
           className="absolute top-0 left-0 origin-top-left border-0"
           style={{ transform: `scale(${scale})` }}

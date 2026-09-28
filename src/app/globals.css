@@ -27,6 +27,11 @@
     color-scheme: dark;
     background: var(--color-bg);
     scroll-padding-top: 5rem;
+    /* Page still scrolls; only the bar is hidden for a cleaner look. */
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
   }
   body {
     @apply bg-bg text-fg font-sans antialiased;
